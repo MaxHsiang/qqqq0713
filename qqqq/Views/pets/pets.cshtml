@@ -58,7 +58,7 @@
             </div>
             <div class="col-xl-9 col-lg-8 col-md-7">
                 <!-- Start Filter Bar -->
-                <div class="filter-bar d-flex flex-wrap align-items-center">
+                <div class="filter-bar d-flex flex-wrap align-items-center position-relative">
                     <div class="sorting mr-auto">
                         <select>
                             <option value="1">狗</option>
@@ -79,8 +79,58 @@
                     </div>
 
                     <div class="sorting mr-auto" style="display:none;">
-                        <button type="button" style="margin-left:10px; align-items: center" ><i class="fa-solid fa-bars"></i></button>
-                        <button type="button" style="margin-left:10px; align-items: center" ><i class="fa-solid fa-table-cells"></i></button>
+                        <button type="button" style="margin-left:10px; align-items: center"><i class="fa-solid fa-bars"></i></button>
+                        <button type="button" style="margin-left:10px; align-items: center"><i class="fa-solid fa-table-cells"></i></button>
+                    </div>
+                    <div class="sorting mr-auto  position-absolute " style="right:0;">
+                        <input type="button" value="願望清單" class="btn btn-warning" style="background-color: #EAA636; color: #fff;margin-right:auto;" data-toggle="modal" data-target="#exampleModal"/>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">願望清單</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="detailform">
+
+                                        <i class="fa-solid fa-paw">
+                                            <label>種類</label>
+                                        </i>
+                                        <input type="text" class="form-control" id="subcategory" />
+
+                                        <i class="fa-solid fa-paw">
+                                            <label>品種</label>
+                                        </i>
+                                        <input type="text" class="form-control" id="category" />
+
+
+                                        <i class="fa-solid fa-paw">
+                                            <label>性別</label>
+                                        </i>
+                                        <input type="text" class="form-control" id="gender" />
+
+                                        <i class="fa-solid fa-paw">
+                                            <label>花色</label>
+                                        </i>
+                                        <input type="text" class="form-control" id="color" />
+
+                                        <i class="fa-solid fa-paw">
+                                            <label>體型</label>
+                                        </i>
+                                        <input type="text" class="form-control" id="size" />
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                                    <button type="button" class="btn btn-primary" >儲存</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- End Filter Bar -->
