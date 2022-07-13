@@ -1,0 +1,135 @@
+﻿@model Pet.ViewModels.CLoginView
+
+註冊
+
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>Register</h1>
+
+<h4>CMemberView</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Register" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" hidden>
+                <label asp-for="MemberID" class="control-label"></label>
+                <input asp-for="MemberID" class="form-control" />
+                <span asp-validation-for="MemberID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for=" Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PasswordConfirm" class="control-label"></label>
+                <input asp-for="PasswordConfirm" class="form-control" />
+                <span asp-validation-for="PasswordConfirm" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemberPhone" class="control-label"></label>
+                <input asp-for="MemberPhone" class="form-control" />
+                <span asp-validation-for="MemberPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="MemberCityName" class="control-label"></label>
+                <select asp-for="MemberCityName" class="form-control" id="selCity">
+                </select>
+                <span asp-validation-for="MemberCityName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for=" Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="MemberBirthDate" class="control-label"></label>
+                <input asp-for="MemberBirthDate" class="form-control" />
+                <span asp-validation-for="MemberBirthDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group" hidden>
+                <label asp-for=" Photo" class="control-label"></label>
+                <input asp-for="Photo" class="form-control" />
+                <span asp-validation-for="Photo" class="text-danger"></span>
+            </div>
+            <span asp-validation-for="Photo" class="text-danger"></span>
+
+            <div class="form-group">
+                <label asp-for="HgenderId" class="control-label"></label>
+                <input asp-for="HgenderId" type="radio" value="1" />男性
+                <input asp-for="HgenderId" type="radio" value="2" />女性
+            </div>
+            <div class="form-group">
+                <label class="control-label">會員照片</label>
+                <input type="file" name=" File" class="form-control" id="File" />
+            </div>
+            <img src="~/Images/222.jpg" width="80" height="40" id="memberPicture" />
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+@section Scripts {
+
+<script>
+
+    const selCity = document.querySelector("#selCity");
+
+    async function loadCity() {
+        const response = await fetch('@Url.Content("~/Home/city")');
+        const data = await response.json();
+        data.forEach(city => {
+            const opt = new Option(city, city);
+            console.log(opt);
+            selCity.options.add(opt);
+
+
+        })
+    }
+    loadCity();
+</script>
+<script>
+    $("#File").on("change", function () {
+
+        readURL(this);
+    })
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#memberPicture").attr("src", e.target.result);
+                //div.append(`<img src="${e.target.result}" style="width:150px"/>`);
+                //$("#preview_progressbarTW_img").attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

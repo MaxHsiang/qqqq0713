@@ -1,0 +1,240 @@
+﻿<div class="container-fluid  py-6 wow fadeIn" data-wow-delay="0.1s" style="background: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)), url(../img/head-1.jpg) center center no-repeat; background-size: cover;">
+    <div class="container text-center pt-5 pb-3">
+        <h1 class="display-4 text-white animated slideInDown mb-3">領養專區</h1>
+    </div>
+</div>
+
+<section class="section-margin--small mb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-2 col-lg-4 col-md-5">
+                <div class="sidebar-categories">
+                    <div class="head">寵物類型選項</div>
+                    <ul class="main-categories">
+                        <li class="common-filter">
+                            <form action="#">
+                                <ul>
+                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="men" name="brand"><label for="men">狗</label></li>
+                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="women" name="brand"><label for="women">貓</label></li>
+                                </ul>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+                <div class="sidebar-filter">
+                    <div class="top-filter-head">品種</div>
+                    <div class="common-filter">
+                        <div class="head">狗</div>
+                        <form action="#">
+                            <ul>
+                                <li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="brand"><label for="apple">瑪爾濟斯<span>(10)</span></label></li>
+                                <li class="filter-list"><input class="pixel-radio" type="radio" id="asus" name="brand"><label for="asus">米格魯<span>(12)</span></label></li>
+                                <li class="filter-list"><input class="pixel-radio" type="radio" id="gionee" name="brand"><label for="gionee">英國鬥牛犬<span>(8)</span></label></li>
+                                <li class="filter-list"><input class="pixel-radio" type="radio" id="micromax" name="brand"><label for="micromax">米克斯<span>(49)</span></label></li>
+                            </ul>
+                        </form>
+                    </div>
+                    <div class="common-filter">
+                        <div class="head">貓</div>
+                        <form action="#">
+                            <ul>
+                                <li class="filter-list"><input class="pixel-radio" type="radio" id="black" name="color"><label for="black">英國短毛貓<span>(29)</span></label></li>
+                                <li class="filter-list">
+                                    <input class="pixel-radio" type="radio" id="balckleather" name="color"><label for="balckleather">
+                                        波絲貓<span>(29)</span>
+                                    </label>
+                                </li>
+                                <li class="filter-list">
+                                    <input class="pixel-radio" type="radio" id="blackred" name="color"><label for="blackred">
+                                        長靴貓<span>(19)</span>
+                                    </label>
+                                </li>
+                                <li class="filter-list"><input class="pixel-radio" type="radio" id="gold" name="color"><label for="gold">米克斯<span>(19)</span></label></li>
+                            </ul>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-xl-9 col-lg-8 col-md-7">
+                <!-- Start Filter Bar -->
+                <div class="filter-bar d-flex flex-wrap align-items-center">
+                    <div class="sorting mr-auto">
+                        <select>
+                            <option value="1">狗</option>
+                            <option value="1">貓</option>
+                        </select>
+                    </div>
+                    <div class="sorting mr-auto">
+                        <select>
+                            <option value="1">馬爾濟斯</option>
+                            <option value="1">美國短毛貓</option>
+                        </select>
+                    </div>
+                    <div>
+                        <div class="input-group filter-bar-search sorting mr-auto">
+                            <input type="text" placeholder="Search">
+                            <button type="button" class="input-group-append"><i class="bi bi-search"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="sorting mr-auto" style="display:none;">
+                        <button type="button" style="margin-left:10px; align-items: center" ><i class="fa-solid fa-bars"></i></button>
+                        <button type="button" style="margin-left:10px; align-items: center" ><i class="fa-solid fa-table-cells"></i></button>
+                    </div>
+                </div>
+                <!-- End Filter Bar -->
+                <!-- Start Best Seller -->
+                <section class="lattest-product-area pb-40 category-list">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card text-center card-product">
+                                <div class="card-product__img">
+                                    <img class="card-img" src="~/img/pets/pet1.jpg" alt="">
+                                    <ul class="card-product__imgOverlay">
+                                        <li><button onclick="javascript:location.href='/pets/showpets'"><i class="bi bi-search"></i></button></li>
+                                        <li><button onclick="alert('已加入我的最愛');"><i class="bi bi-heart"></i></button></li>
+                                    </ul>
+                                </div>
+                                <div class="card-body">
+                                    <p>品種:橘貓</p>
+                                    <h4 class="card-product__title" onclick="javascript:location.href='/pets/showpets'"><a href="#">小菊</a></h4>
+                                    <p class="card-product__price">台北市</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card text-center card-product">
+                                <div class="card-product__img">
+                                    <img class="card-img" src="~/img/pets/pet2.jpg" alt="">
+                                    <ul class="card-product__imgOverlay">
+                                        <li><button><i class="bi bi-search"></i></button></li>
+                                        <li><button><i class="bi bi-heart"></i></button></li>
+                                    </ul>
+                                </div>
+                                <div class="card-body">
+                                    <p>品種:大灰狗</p>
+                                    <h4 class="card-product__title"><a href="#">大灰</a></h4>
+                                    <p class="card-product__price">新北市</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card text-center card-product">
+                                <div class="card-product__img">
+                                    <img class="card-img" src="~/img/pets/pet3.jpg" alt="">
+                                    <ul class="card-product__imgOverlay">
+                                        <li><button><i class="bi bi-search"></i></button></li>
+                                        <li><button><i class="bi bi-heart"></i></button></li>
+                                    </ul>
+                                </div>
+                                <div class="card-body">
+                                    <p>品種:比熊犬</p>
+                                    <h4 class="card-product__title"><a href="#">阿雄</a></h4>
+                                    <p class="card-product__price">桃園市</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card text-center card-product">
+                                <div class="card-product__img">
+                                    <img class="card-img" src="~/img/pets/pet4.jpg" alt="">
+                                    <ul class="card-product__imgOverlay">
+                                        <li><button><i class="bi bi-search"></i></button></li>
+                                        <li><button><i class="bi bi-heart"></i></button></li>
+                                    </ul>
+                                </div>
+                                <div class="card-body">
+                                    <p>品種:小灰貓</p>
+                                    <h4 class="card-product__title"><a href="#">輝哥</a></h4>
+                                    <p class="card-product__price">新竹市</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card text-center card-product">
+                                <div class="card-product__img">
+                                    <img class="card-img" src="~/img/pets/pet5.jpg" alt="">
+                                    <ul class="card-product__imgOverlay">
+                                        <li><button><i class="bi bi-search"></i></button></li>
+                                        <li><button><i class="bi bi-heart"></i></button></li>
+                                    </ul>
+                                </div>
+                                <div class="card-body">
+                                    <p>品種:小黃狗</p>
+                                    <h4 class="card-product__title"><a href="#">阿黃</a></h4>
+                                    <p class="card-product__price">苗栗市</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card text-center card-product">
+                                <div class="card-product__img">
+                                    <img class="card-img" src="~/img/pets/pet6.jpg" alt="">
+                                    <ul class="card-product__imgOverlay">
+                                        <li><button><i class="bi bi-search"></i></button></li>
+                                        <li><button><i class="bi bi-heart"></i></button></li>
+                                    </ul>
+                                </div>
+                                <div class="card-body">
+                                    <p>品種:拉不拉多</p>
+                                    <h4 class="card-product__title"><a href="#">拉拉</a></h4>
+                                    <p class="card-product__price">台中市</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card text-center card-product">
+                                <div class="card-product__img">
+                                    <img class="card-img" src="~/img/pets/pet7.jpg" alt="">
+                                    <ul class="card-product__imgOverlay">
+                                        <li><button><i class="bi bi-search"></i></button></li>
+                                        <li><button><i class="bi bi-heart"></i></button></li>
+                                    </ul>
+                                </div>
+                                <div class="card-body">
+                                    <p>品種:小灰貓</p>
+                                    <h4 class="card-product__title"><a href="#">喵喵</a></h4>
+                                    <p class="card-product__price">彰化市</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card text-center card-product">
+                                <div class="card-product__img">
+                                    <img class="card-img" src="~/img/pets/pet8.jpg" alt="">
+                                    <ul class="card-product__imgOverlay">
+                                        <li><button><i class="bi bi-search"></i></button></li>
+                                        <li><button><i class="bi bi-heart"></i></button></li>
+                                    </ul>
+                                </div>
+                                <div class="card-body">
+                                    <p>品種:熊貓狗</p>
+                                    <h4 class="card-product__title"><a href="#">福胖達</a></h4>
+                                    <p class="card-product__price">嘉義市</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card text-center card-product">
+                                <div class="card-product__img">
+                                    <img class="card-img" src="~/img/pets/pet9.jpg" alt="">
+                                    <ul class="card-product__imgOverlay">
+                                        <li><button><i class="bi bi-search"></i></button></li>
+                                        <li><button><i class="bi bi-heart"></i></button></li>
+                                    </ul>
+                                </div>
+                                <div class="card-body">
+                                    <p>品種:灰貓</p>
+                                    <h4 class="card-product__title"><a href="#">霸氣外漏</a></h4>
+                                    <p class="card-product__price">台南市</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- End Best Seller -->
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,192 @@
+﻿<div class="container-fluid  py-6 wow fadeIn" data-wow-delay="0.1s" style=" margin-bottom: 6rem; background: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)),url(../img/head-5.jpg) center center no-repeat; background-size: cover;">
+    <div class="container text-center pt-5 pb-3">
+        <h1 class="display-4 text-white animated slideInDown mb-3">購物商城</h1>
+    </div>
+</div>
+
+
+@{
+    ViewData["Title"] = "List";
+}
+
+@*<div class="col-12 align-center">*@
+<!-- Start Filter Bar -->
+ 
+<div class="filter-bar d-flex flex-wrap align-items-center text-center">
+    <div class="text-center ">
+
+        <select class="sorting mr-auto" style="margin-left: 10px; margin-right: 10px;">
+            <option value="1">狗食品</option>
+            <option value="1">狗用品</option>
+            <option value="1">貓食品</option>
+            <option value="1">貓用品</option>
+        </select>
+    </div>
+    <div>
+        <select class="sorting mr-auto" style="margin-left: 10px; margin-right:10px;">
+            <option value="1">狗罐頭</option>
+            <option value="1">狗飼料</option>
+            <option value="1">狗玩具</option>
+            <option value="1">洗毛精</option>
+             <option value="1">貓罐頭</option>
+            <option value="1">貓飼料</option>
+            <option value="1">貓砂盆</option>
+            <option value="1">貓抓板</option>
+        </select>
+    </div>
+    <div>
+        <div class="input-group filter-bar-search">
+            <input type="text" placeholder="輸入關鍵字">
+            @*<div class="input-group-append">*@
+            <button type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
+
+            @*</div>*@
+        </div>
+    </div>
+
+
+    <div class="sorting mr-auto">
+        <button type="button" id="listRow" style="margin-left: 10px; border-color: rgba(246,135,4,0.5);"><i class="fa-solid fa-bars" style="color: rgb(246,135,4);"></i></button>
+        <button type="button" id="listCol" style="margin-left: 10px; border-color: rgba(246,135,4,0.5);"><i class="fa-solid fa-table-cells"  style="color: rgb(246,135,4);"></i></button>
+    </div>
+</div>
+
+@*</div>*@
+<!--<div class="row align-items-center">
+    <p class="col-4">-->
+@*<a asp-action="Create">Create New</a>*@
+<!--<img src="~/Images/001.png" class="col-11 " />
+    </p>
+    <h1 class="col-8">我救浪線上商城</h1>
+</div>-->
+<div class="row col-12">
+    <div class="col-md-3 alert col-sm-12 alert-light row">
+        <div class="col-1"></div>
+            <div class="col-11 sidebar-categories">
+                <h2 class="head" style="text-align: center; letter-spacing:50px;font-size:30px">分類</h2>
+                <ul class="card-product__title">
+                    <li>
+                        <h4>狗用</h4>
+                        <ul class="single-search-product-wrapper">
+                            <li>
+                                <h5>狗食品</h5>
+                                <ul class="child">
+                                    <li><input class="pixel-radio" type="radio" name="brand">狗罐頭</li>
+                                    <li><input class="pixel-radio" type="radio" name="brand">狗飼料</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h5>狗用品</h5>
+                                <ul class="child">
+                                    <li><input class="pixel-radio" type="radio" name="brand">狗玩具</li>
+                                    <li><input class="pixel-radio" type="radio" name="brand">洗毛精</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h4>貓用</h4>
+                        <ul class="single-search-product-wrapper">
+                            <li>
+                                <h5>貓食品</h5>
+                                <ul class="child">
+                                    <li><input class="pixel-radio" type="radio" name="brand">貓罐頭</li>
+                                    <li><input class="pixel-radio" type="radio" name="brand">貓飼料</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h5>貓用品</h5>
+                                <ul class="child">
+                                    <li><input class="pixel-radio" type="radio" name="brand">貓砂盆</li>
+                                    <li><input class="pixel-radio" type="radio" name="brand">貓抓板</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        @*<div class="col-xl-2 col-lg-4 col-md-5">
+                <div class="sidebar-categories">
+                    <div class="head">寵物類型選項</div>
+                    <div class="head">寵物類型選項</div>
+                    <ul class="main-categories">
+
+                        <li class="common-filter">
+                            <form action="#">
+                                <ul>
+                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="men" name="brand"><label for="men">狗</label></li>
+                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="women" name="brand"><label for="women">貓</label></li>
+                                </ul>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+                <div class="sidebar-filter">
+                    <div class="top-filter-head">品種</div>
+                    <div class="common-filter">
+                        <div class="head">狗</div>
+                        <form action="#">
+                            <ul>
+                                <li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="brand"><label for="apple">瑪爾濟斯<span>(10)</span></label></li>
+                                <li class="filter-list"><input class="pixel-radio" type="radio" id="asus" name="brand"><label for="asus">米格魯<span>(12)</span></label></li>
+                                <li class="filter-list"><input class="pixel-radio" type="radio" id="gionee" name="brand"><label for="gionee">英國鬥牛犬<span>(8)</span></label></li>
+                                <li class="filter-list"><input class="pixel-radio" type="radio" id="micromax" name="brand"><label for="micromax">米克斯<span>(49)</span></label></li>
+                            </ul>
+                        </form>
+                    </div>
+                    <div class="common-filter">
+                        <div class="head">貓</div>
+                        <form action="#">
+                            <ul>
+                                <li class="filter-list"><input class="pixel-radio" type="radio" id="black" name="color"><label for="black">英國短毛貓<span>(29)</span></label></li>
+                                <li class="filter-list">
+                                    <input class="pixel-radio" type="radio" id="balckleather" name="color"><label for="balckleather">
+                                        波絲貓<span>(29)</span>
+                                    </label>
+                                </li>
+                                <li class="filter-list">
+                                    <input class="pixel-radio" type="radio" id="blackred" name="color"><label for="blackred">
+                                        長靴貓<span>(19)</span>
+                                    </label>
+                                </li>
+                                <li class="filter-list"><input class="pixel-radio" type="radio" id="gold" name="color"><label for="gold">米克斯<span>(19)</span></label></li>
+                            </ul>
+                        </form>
+                    </div>
+
+                </div>
+            </div>*@
+        <div class="col-8" id="divAlert">
+
+        </div>
+        <div class="col-1 ">
+            <ul class="navbar-dark list-unstyled float-right " style="position:fixed">
+                <li>
+                    <button class="btn btn-secondary border-0" title="Popover title" style="width: 100%; background: rgba(244,126,1,0.8); "
+                            data-container="body" data-toggle="popover" data-placement="right"
+                            data-content="右側的 Popover 中的一些内容">
+                        <i class="fa-solid fa-cart-shopping">@Html.ActionLink(" (0)", "CartView", null)</i>
+                    </button><br />
+                </li>
+                <li><button style="width: 100%; background: rgba(244,126,1,0.8); " class="btn btn-secondary border-0" data-toggle="tooltip" data-placement="right" title="追蹤商品"><i class="fa-solid fa-star">收藏</i></button><br /></li>
+                <li><button style="width: 100%; background: rgba(244,126,1,0.8); " class="btn btn-secondary border-0" data-toggle="tooltip" data-placement="right" title="回到頂端"><i class="fa-solid fa-circle-arrow-up">TOP</i></button><br /></li>
+            </ul>
+
+
+        </div>
+    </div>
+
+    @section scripts{
+        <script>
+           const divInfo= document.querySelector("#divAlert")
+               $("#divAlert").load('@Url.Content("~/shopping/shoppingCol")')
+            $("#listRow").click(() => {
+                $("#divAlert").load('@Url.Content("~/shopping/shoppingRow")')
+            })
+            $("#listCol").click(() => {
+                $("#divAlert").load('@Url.Content("~/shopping/shoppingCol")')
+            })
+        </script>
+
+    }

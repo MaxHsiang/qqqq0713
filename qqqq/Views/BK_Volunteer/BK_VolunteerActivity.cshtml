@@ -1,0 +1,138 @@
+﻿@model IEnumerable<qqqq.ViewModels.BK_VActivityViewModel>
+
+@{
+    Layout = "_BackLayout";
+}
+@section Styles{
+    <style>
+        #thead > tr > th {
+            font-size: 18px;
+            font-weight: 800;
+            color: black;
+        }
+
+        #thead > tr {
+            border: solid antiquewhite 2px;
+            background-color: antiquewhite;
+        }
+
+        #tbody > tr {
+            border: solid antiquewhite 2px;
+            background-color: antiquewhite;
+            font-size: 16px;
+            font-weight: 600;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="~/css/BK_style.css" rel="stylesheet" />
+}
+<h1 style="text-align:center; font-weight:900;">志工活動管理</h1>
+
+<div style="text-align:left; font-size:16px ; font-weight:600">
+    @using (Html.BeginForm())
+    {
+        @:關鍵字 @Html.TextBox("txtKeyword", (object)@ViewBag.keyword, new { @style = "border-radius:30px;" })
+        <button class="fa-solid fa-magnifying-glass" style=" border:none; background-color:transparent;"></button>
+
+        <a asp-action="Create" class="fa-solid fa-user-plus" style="margin-top:8PX; float:right;font-size:20px;color:chocolate;"> 新增志工活動</a>
+    }
+</div>
+<br />
+<div class="row mb-5">
+    <table class="table">
+        <thead id="thead" style="text-align:center;">
+            <tr width="100%" style="font-size:20px">
+                <th hidden>
+                    @Html.DisplayNameFor(model => model.ActivityId)
+                </th>
+                <th width="10%">
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th width="8%">
+                    @Html.DisplayNameFor(model => model.StartDate)
+                </th>
+                <th width="8%">
+                    @Html.DisplayNameFor(model => model.EndDate)
+                </th>
+                <th hidden>
+                    @Html.DisplayNameFor(model => model.ActivityCategoryId)
+                </th>
+                <th width="5%">
+                    @Html.DisplayNameFor(model => model.ActivityCategoryName)
+                </th>
+                <th width="5%">
+                    @Html.DisplayNameFor(model => model.PeopleInNeed)
+                </th>
+                <th width="5%">
+                    @Html.DisplayNameFor(model => model.ActivityPhoto)
+                </th>
+                <th width="40%">
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="tbody" style="text-align:center;">
+            @{
+                int cnt = 0;
+                foreach (var item in Model)
+                {
+                    cnt++;
+                    <tr>
+                        <td hidden id="id@(cnt)">
+                            @Html.DisplayFor(modelItem => item.ActivityId)
+                        </td>
+                        <td id="title@(cnt)">
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td id="startdate@(cnt)">
+                            @Html.DisplayFor(modelItem => item.StartDate)
+                        </td>
+                        <td id="enddate@(cnt)">
+                            @Html.DisplayFor(modelItem => item.EndDate)
+                        </td>
+                        <td hidden id="cateid@(cnt)">
+                            @Html.DisplayFor(modelItem => item.ActivityCategoryId)
+                        </td>
+                        <td id="catename@(cnt)">
+                            @Html.DisplayFor(modelItem => item.ActivityCategoryName)
+                        </td>
+                        <td id="need@(cnt)">
+                            @Html.DisplayFor(modelItem => item.PeopleInNeed)
+                        </td>
+                        <td id="photo">
+                            <img src="~/img/volunteer/@item.ActivityPhoto" style="width:60px; height:40px;" />
+                        </td>
+                        <td id="description@(cnt)">
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.ActionLink("", "Edit", new { id = item.ActivityId }, new { Class = "fa-solid fa-wrench", @style = "color:chocolate;font-size:16px" }) 
+                            @Html.ActionLink("", "Delete", new { id = item.ActivityId }, new { Class = "fa-solid fa-trash-can", @style = "color:chocolate;font-size:16px", onclick = "return confirm('請確認是否要刪除?')" })
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts{
+    <script>
+        $("td").dblclick((event) => {
+            console.log(event.target.id)
+            console.log(event.target.innerText)
+            let old = event.target.innerText;
+            let x = $(`#${event.target.id}`);
+            x.html(`<input id="text" type="text" value="${event.target.innerText}" style="width:100%;"/>`)
+            /*$("#text").focus().blur()*/
+            $("#text").focus().blur(() => {
+                x.html($("#text").val())
+            })
+        })
+    </script>
+}

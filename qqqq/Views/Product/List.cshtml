@@ -1,0 +1,468 @@
+﻿@model IEnumerable<Pet.ViewModels.CProductView>
+
+@{
+    ViewData["Title"] = "List";
+    qqqq.Models.我救浪Context db = new 我救浪Context();
+    Layout = "_BackLayout";
+}
+@section Styles{
+    <style>
+        .thHover:hover {
+            cursor: pointer;
+        }
+
+        .spanPage {
+            margin: 0 5px;
+            cursor: pointer;
+            color: dodgerblue;
+        }
+
+            .spanPage:hover {
+                text-decoration-line: underline;
+                color: red;
+            }
+
+            .spanPage.spanPageSelected {
+                text-decoration-line: underline;
+                color: red;
+            }
+
+        #thead > tr > th {
+            font-size: 18px;
+            font-weight: 800;
+            color: black;
+        }
+
+        #thead > tr {
+            border: solid antiquewhite 2px;
+            background-color: antiquewhite;
+        }
+
+        #tbody > tr {
+            border: solid antiquewhite 2px;
+            background-color: antiquewhite;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        #ProductName, #Pet, #Category, #CreateSubmit, #SubCategory {
+            border: solid antiquewhite 2px;
+            border-radius: 20px;
+            color: black;
+            font-weight: 400;
+            background-color: antiquewhite;
+        }
+
+        #txtinput {
+            border: solid antiquewhite 2px;
+            border-radius: 20px;
+            color: black;
+            font-weight: 400;
+            background-color: antiquewhite;
+        }
+    </style>
+}
+
+<h1 style="text-align:center; font-weight:900">商品管理系統</h1>
+<br />
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="~/css/BK_style.css" rel="stylesheet" />
+</head>
+<body>
+
+
+    <form method="post" action="~/Product/EasySearch" style="font-size:18px;">
+        關鍵字 <input type="text" name="Keyword" style="width:100px;border-radius:15px;" class="text-center" value="@ViewBag.keyword" />
+        價錢區間
+        <input type="number" name="PriceLow" style="width:80px; border-radius:15px;" value="@ViewBag.low" class="text-center" />~<input type="number" name="PriceHigh" style="width:80px;border-radius:15px;" value="@ViewBag.high" class="text-center" />(單位:元)
+        @*<label>上架中</label><input type="checkbox" value="上架中" name="Continued" />
+            <label>已下架</label><input type="checkbox" value="已下架" name="Continued" />*@
+        <button style="color:black; margin:10px,20px,10px,20px;border:none;background-color:transparent;" id="Search">搜尋</button> <button class="fa-solid fa-eraser" style="border:none;background-color:transparent;" id="Clear"> 清空</button>
+        <!-- Button trigger modal -->
+        <button class="fa-solid fa-user-plus" type="button" style="float:right;padding-top:10px; font-size:20px;color:chocolate;border:none;background-color:transparent;" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="$('#staticBackdrop').modal('show')"> 新增商品</button>
+    </form>
+    <br />
+    <div>
+        <div class="row mb-5">
+            <table class="table">
+                <thead id="thead" style="text-align:center;">
+                    <tr style="font-size:20px">
+                        <th>
+                            照片
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProductName)
+                        </th>
+                        <th style="white-space:nowrap">
+                            @Html.DisplayNameFor(model => model.SubCategoryName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Price)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Cost)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SupplierName)
+                        </th>
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.Description)
+                            </th>*@
+                        <th style="white-space:nowrap;">
+                            @Html.DisplayNameFor(model => model.UnitsInStock)
+                        </th>
+                        <th colspan=3 class="col-2">
+                            功能
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="tbody" style="text-align:center;">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            @{
+                                string c = item.Product.SubCategory.Category.CategoryName + "/" + item.SubCategoryName;
+                            }
+                            <td>
+                                @{
+                                    if (item.Product.Photos.FirstOrDefault(ph => ph.IsDefault == true) != null)
+                                    {
+                                        <img src="~/Images/@item.Product.Photos.FirstOrDefault(ph=>ph.IsDefault==true).PictureName" style="border-radius:50% ; height:75px ; width:75px" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Images/Default.jpg" style="border-radius:50% ; height:75px ; width:75px" />
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductName)
+                            </td>
+
+                            <td style="white-space:nowrap">
+                                @*@Html.DisplayFor(modelItem =>item.SubCategoryName)*@
+                                @c
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Cost)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SupplierName)
+                            </td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UnitsInStock)
+                            </td>
+                            <td>
+
+                                @Html.ActionLink("編輯", "Edit", "Product", new { id = item.ProductId }, new { Class = "fa-solid fa-wrench", style = "color:chocolate;font-size:16px;text-decoration-line:none;" })
+                                <br />
+                                @*@Html.ActionLink("下架商品", "Delete", "Product", new { id = item.ProductId }, new { style = "white-space:nowrap;", onclick = "return confirm('確定要下架嗎')", Class = "btn btn-danger" })*@
+                                <button ProductId=@item.ProductId class="btn-delete fa-solid fa-arrow-down-short-wide" style="color:chocolate;font-size:16px;border:none;background-color:transparent;">下架</button>
+                            </td>
+
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="row">
+                <div id="divPage" style="border-radius:20px; margin:auto;border:2px solid black; text-align:center" class="col-12"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel" style="font-weight:700;font-size:20px">新增商品</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="$('#staticBackdrop').modal('hide')"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <form asp-action="Create" name="formCreate" id="formCreate">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-group">
+                                    <i class="fa-solid fa-paw">
+                                        <label class="control-label">商品名稱</label>
+                                    </i>
+                                    <input required name="ProductName" id="ProductName" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" />
+                                    @*<span asp-validation-for="ProductName" class="text-danger"></span>*@
+                                </div>
+                                <div class="form-group">
+                                    <i class="fa-solid fa-paw">
+                                        <label class="control-label">動物類別</label>
+                                    </i>
+                                    <div class="col-md-10">
+                                        <select id="Pet" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                                            <option value="none" selected disabled hidden>請選擇選項</option>
+                                            @{
+                                                var qp = from c in db.Categories where c.IsPet == true && c.CategoryName != "不限" select c;
+                                                foreach (Category c in qp)
+                                                {
+                                                    <option value="@c.CategoryId">@c.CategoryName</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <i class="fa-solid fa-paw">
+                                        <label class="control-label">商品主分類</label>
+                                    </i>
+                                    <div class="col-md-10">
+                                        <select id="Category" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                                            <option value="none" selected disabled hidden>請選擇選項</option>
+                                            @{
+                                                var qc = from c in db.Categories where c.IsPet == false select c;
+                                                foreach (Category c in qc)
+                                                {
+                                                    <option value="@c.CategoryId" style="display:none" parentCategory="@c.ParentCategory">@c.CategoryName</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <i class="fa-solid fa-paw">
+                                        <label class="control-label">商品次分類</label>
+                                    </i>
+                                    <div class="col-md-10">
+                                        <select id="SubCategory" name="SubCategoryID" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                                            <option value="none" selected disabled hidden>請選擇選項</option>
+                                            @{
+                                                var qsc = from sc in db.SubCategories where sc.SubCategoryName != "不限" select sc;
+                                                foreach (SubCategory sc in qsc)
+                                                {
+                                                    <option value="@sc.SubCategoryId" style="display:none" Category="@sc.CategoryId">@sc.SubCategoryName</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <i class="fa-solid fa-paw">
+                                        <label class="control-label">價格</label>
+                                    </i>
+                                    <input id="txtinput" name="Price" type="number" class="form-control" />
+                                    @*<span asp-validation-for="Price" class="text-danger"></span>*@
+                                </div>
+                                <div class="form-group">
+                                    <i class="fa-solid fa-paw">
+                                        <label class="control-label">成本</label>
+                                    </i>
+                                    <input id="txtinput" name="Cost" type="number" class="form-control" />
+                                    @*<span asp-validation-for="Cost" class="text-danger"></span>*@
+                                </div>
+                                <div class="form-group">
+                                    <i class="fa-solid fa-paw">
+                                        <label class="control-label">供應商</label>
+                                    </i>
+                                    <div class="col-md-10">
+                                        <select id="txtinput" name="SupplierId" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                                            <option value="none" selected disabled hidden>請選擇選項</option>
+                                            @{
+                                                var q = from s in db.Suppliers select s;
+                                                foreach (Supplier s in q)
+                                                {
+                                                    <option value="@s.SupplierId">@s.Name</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group form-check" hidden>
+                                    <label class="form-check-label">
+                                        <input value="false" name="IsPet" />
+                                        <input value="true" name="Continued" />
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <i class="fa-solid fa-paw">
+                                        <label class="control-label">商品說明</label>
+                                    </i>
+                                    <textarea id="txtinput" name="Description" class="form-control"></textarea>
+                                    @*<span asp-validation-for="Description" class="text-danger"></span>*@
+                                </div>
+                                <div class="form-group">
+                                    <i class="fa-solid fa-paw">
+                                        <label class="control-label">庫存</label>
+                                    </i>
+                                    <input id="txtinput" name="UnitsInStock" type="number" class="form-control" />
+                                    @*<span asp-validation-for="UnitsInStock" class="text-danger"></span>*@
+                                </div>
+                                <br />
+                                <div class="form-group" style="text-align:right">
+                                    <i class="fa-solid fa-floppy-disk">
+                                        <button id="CreateSubmit" style="border:none;background-color:transparent;">儲存</button>
+                                    </i>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+@section Scripts{
+    <script>
+        //清除條件
+        $("#Clear").on("click", Clear);
+        function Clear() {
+            event.preventDefault();
+            $("input[type='number']").val("");
+            $(":text").val("");
+        }
+    </script>
+
+    <script>
+        //排序
+        var sortMode = false;
+        $("th").eq(1).nextAll().slice(0, 5).on("click", Sort).addClass("thHover");
+        function Sort() {
+            sortMode = !sortMode;
+            let index = $(this).index();
+            $("th").removeClass("bg-warning");
+            $(this).addClass("bg-warning");
+            let all = $("tbody tr");
+            for (let i = 0; i < all.length; i++) {
+                let j = 0;
+
+                let preAll = all.eq(i).prevAll();
+
+                for (j = 0; j < preAll.length; j++) {
+
+                    let ele_price = all.eq(i).children("td").eq(index).text();
+                    let pre_price = preAll.eq(j).children("td").eq(index).text();
+                    if (isNaN(ele_price) == false) {
+                        ele_price = parseInt(ele_price);
+                        pre_price = parseInt(pre_price);
+                    }
+                    if (sortMode == true) {
+                        if (ele_price >= pre_price) {
+                            all.eq(i).insertAfter(preAll.eq(j));
+                            break;
+                        }
+                    }
+                    else if (sortMode == false) {
+                        if (ele_price <= pre_price) {
+                            all.eq(i).insertAfter(preAll.eq(j));
+                            break;
+                        }
+                    }
+                }
+                if (j == preAll.length) {
+                    all.eq(i).prependTo("tbody");
+                }
+            }
+            $("#divPage .spanPage").eq(0).trigger("click");
+        }
+    </script>
+
+    <script>
+          //Modal
+        //新增商品的聯動選單
+            $("#Pet").change(function ()
+            {
+                $("#Category option").hide();
+            $("#Category").val("none");
+            let parentID = this.value;
+            $(`#Category option[parentCategory=${parentID}]`).show();
+
+            $("#Category").trigger("change");
+        });
+
+            $("#Category").change(function ()
+            {
+                $("#SubCategory option").hide();
+            $("#SubCategory").val("none");
+            let CategoryID = this.value;
+            $(`#SubCategory option[Category=${CategoryID}]`).show();
+        });
+            //Btn_Create
+            //console.log($("#submit"));
+            $("#CreateSubmit").click((e) =>
+            {
+                e.preventDefault();
+                $.post("@Url.Content("~/Product/Create")", $("#formCreate").serialize(), (data) =>
+                {
+                    if (data == -1)
+                    {
+                        alert("新增失敗")
+                    }
+                    else
+                    {
+                        if (confirm("新增成功，是否要跳轉到編輯頁面") == true)
+                        {
+                            document.location.href = "@Url.Content("~/Product/Edit/")" + `${data}`;
+                        }
+                        else
+                        {
+                            document.location.href = "@Url.Content("~/Product/List")"
+                        }
+                    }
+                })
+            })
+    </script>
+    <script>
+        //Page
+        let tr = $("tbody tr");
+        let pageCount = Math.ceil(tr.length / 10);
+        for (let i = 1; i <= pageCount; i++) {
+            $("#divPage").append(`<span class="spanPage">${i}</span>`);
+        }
+        let spanPage = $("#divPage .spanPage");
+        spanPage.on("click", function () {
+            tr = $("tbody tr");
+            tr.hide();
+            let index = 10 * $(this).text();
+            spanPage.removeClass("spanPageSelected");
+            $(this).addClass("spanPageSelected");
+            tr.slice(index - 10, index).show();
+            window.scrollTo({ top: 0, left: 0, behavior: "instant" })
+        })
+        spanPage.eq(0).trigger("click");
+
+    </script>
+    <script>
+        //btn-delete
+$(".btn-delete").on("click", function()
+{
+    if (confirm("確定要下架嗎") == false) return;
+    let Id=this.getAttribute("ProductId")
+    $.get(`@Url.Content("~/Product/Delete/")`, { id: Id }, (data) =>
+    {
+        $(this).parents("tr").remove();
+        if (data == true) {
+            alert("商品無關聯紀錄，完全刪除")
+        }
+        else {
+            alert("商品下架成功");
+        }
+    })
+})
+    </script>
+}

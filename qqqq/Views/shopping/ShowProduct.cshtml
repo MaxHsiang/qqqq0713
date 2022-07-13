@@ -1,0 +1,151 @@
+﻿<div class="container-fluid  py-6 wow fadeIn" data-wow-delay="0.1s" style=" margin-bottom: 6rem; background: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)),url(../../wwwroot/img/head-5.jpg) center center no-repeat; background-size: cover;" >
+    <div class="container text-center pt-5 pb-3">
+        <h1 class="display-4 text-white animated slideInDown mb-3">@Model.ProductName</h1>
+    </div>
+</div>
+@model qqqq.ViewModels.CProductShow
+
+@{
+    ViewData["Title"] = "ShowProduct";
+    Layout = "_Layout";
+}
+
+
+
+<div class="container text-center col-md-6 col-sm-12">
+    <div>
+        <img id="prodImg" width="400"  height="400" src="/Images/@Model.Photos[0].PictureName"/>
+    </div>
+    <br />
+    <div class=" col-md-12 col-sm-12 row list-group-item-primary">
+        @*<table class="table table-light table-striped-columns col-auto">
+            <thead >
+                <tr >
+                    @foreach (var p in Model.Photos)
+                    {
+                        <td class="col-1">
+                            <img src="~/Images/@p.PictureName" class="col-11" width="100" height="100" />
+                        </td>
+
+                    }
+                </tr>
+            </thead>
+        </table>*@
+        @foreach (var p in Model.Photos)
+        {
+         
+                <img src="~/Images/@p.PictureName" class="imgOption col-2 product-item"  />
+     
+        }
+    </div>
+</div>
+<hr />
+<div class="container text-center col-md-6 col-sm-12" >
+    <div class=" text-center">
+        <form asp-action="ShowProduct">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ProductId" name="Cartid"/>
+
+            <div class="form-group">
+                <input hidden type="image"src="~/Images/@Model.Photos[0]" disabled asp-for="ProductName" class="form-control" readonly name="prodImg" />
+
+            </div>
+            <div class="form-group">
+                <h5>
+                    <label asp-for="ProductName" class="control-label">產品名稱</label>
+                </h5>
+                    <input disabled asp-for="ProductName" class="form-control" readonly />
+                    <span asp-validation-for="ProductName" class="text-danger"></span>
+</div>
+            <div class="form-group">
+                <h5>
+                    <label asp-for="SubCategoryId" class="control-label">種類</label>
+                </h5>
+                <input disabled value="@Model.CategoryName / @Model.SubCategoryName " class="form-control" asp-items="ViewBag.SubCategoryId" readonly  >
+                
+            </div>
+            <div class="form-group">
+                <h5>
+                    <label asp-for="Price" class="control-label">售價</label>
+                </h5>
+                <input disabled asp-for="Price" class="form-control " readonly />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <h5>
+                    <label asp-for="SupplierId" class="control-label">品牌</label>
+                </h5>
+                <input  disabled value="@Model.SupplierName" class="form-control" asp-items="ViewBag.SupplierId" id="sup"  readonly >
+
+            </div>
+
+            <div class="form-group ">
+                <h5>
+                    <label asp-for="Description" class="control-label">產品介紹</label>
+                </h5>
+                <input disabled asp-for="Description" class="form-control text-center" readonly />
+
+            </div>
+            <div class="form-group">
+                <h5>
+                    <label asp-for="UnitsInStock" class="control-label">庫存</label>
+                </h5>
+                <input disabled asp-for="UnitsInStock" class="form-control" readonly />
+
+            </div>
+
+            <div class="form-group">
+                <h5>
+                    <label class="product">數量</label>
+                </h5>
+                <input type="number" class="form-control" name="CartCount" min="0" max="@Model.UnitsInStock" value="0" />
+                <span class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="加入購物車" class="btn btn-primary" />
+                <button class="btn btn-success"> <a>@Html.ActionLink("返回產品列表","shopping",null)</a></button>
+            </div>
+        </form>
+    </div>
+    <br /><br />
+          <div>
+              <div><h2>評論</h2></div>
+              <hr />
+              <div>
+                  <div class="text-left row"><img src="~/Images/02.png" width="40" height="40" class="col-md-1 col-auto " /><h5 class="col-md-2 col-auto">陳X中</h5></div>
+                  <div class="text-left row"><img src="~/Images/1s.jpg" width="110" height="25" class="col-3 " />  2022/05/15</div>
+                  <div class="text-left row"><p><h4 class="text">Duck不必買</h4></p></div>
+                  <div></div>
+              </div>
+              <hr />
+              <div>
+                  <div class="text-left row"><img src="~/Images/11.png" width="40" height="40" class="col-md-1 col-auto " /><h5 class="col-md-2 col-auto">蔡X文</h5></div>
+                  <div class="text-left row"><img src="~/Images/3s.jpg" width="110" height="25" class="col-3" />  2022/05/15</div>
+                  <div class="text-left row"><p><h4 class="text">台灣不缺貨</h4></p></div>
+                  <div></div>
+              </div>
+              <hr />
+              <div>
+                  <div class="text-left row"><img src="~/Images/06.png" width="40" height="40" class="col-md-1 col-auto " /><h5 class="col-md-2 col-auto">蔣X安</h5></div>
+                  <div class="text-left row"><img src="~/Images/4s.jpg" width="110" height="25" class="col-3" />  2022/05/15</div>
+                  <div class="text-left row"><p><h4 class="text">改名會比較好賣</h4></p></div>
+                  <div></div>
+              </div>
+              <hr />
+          </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+
+        $(".imgOption").click((event) => {
+            $("#prodImg").attr("src", event.target.src)
+        })
+    </script>
+}

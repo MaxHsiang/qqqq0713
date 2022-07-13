@@ -1,0 +1,369 @@
+﻿@model Pet.ViewModels.CProductView
+
+@{
+    ViewData["Title"] = "Edit";
+    qqqq.Models.我救浪Context db = new 我救浪Context();
+    Layout = "_BackLayout";
+}
+@section Styles{
+    <style>
+        .img:hover {
+            border: 5px solid red;
+        }
+
+        .img_selected {
+            border: 5px solid red;
+        }
+
+        #input, #Category, #Pet, #SubCategory {
+            border: solid antiquewhite 2px;
+            border-radius: 20px;
+            color: black;
+            font-weight: 400;
+            background-color: antiquewhite;
+        }
+    </style>
+}
+<div>
+    <h1 style="font-weight:900; text-align:center; margin-top: 30px; margin-bottom: 10px">會員修改</h1>
+</div>
+<div style="text-align:right; margin-right:10px; text-decoration:none">
+    <a asp-action="List" style="color:chocolate;" class="fa-solid fa-right-from-bracket"> 返回</a>
+</div>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" hidden>
+                <label asp-for="ProductId" class="control-label"></label>
+                <input asp-for="ProductId" class="form-control" />
+                <span asp-validation-for="ProductId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label asp-for="ProductName" class="control-label"></label>
+                </i>
+                <input id="input" asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+            @*動物類別*@
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label class="control-label">動物類別</label>
+                </i>
+                <div class="col-md-10">
+                    <select id="Pet" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                        <option value="none" selected disabled hidden>請選擇選項</option>
+                        @{
+                            var qp = from c in db.Categories where c.IsPet == true && c.CategoryName != "不限" select c;
+                            foreach (Category c in qp)
+                            {
+                                if (Model.Product.SubCategory.Category.ParentCategory == c.CategoryId)
+                                {
+                                    <option value="@c.CategoryId" selected>@c.CategoryName</option>
+                                }
+                                else
+                                {
+                                    <option value="@c.CategoryId">@c.CategoryName</option>
+                                }
+
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+
+            @*Category*@
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label class="control-label">商品主分類</label>
+                </i>
+                <div class="col-md-10">
+                    <select id="Category" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                        <option value="none" selected disabled hidden>請選擇選項</option>
+                        @{
+                            var qc = from c in db.Categories where c.IsPet == false select c;
+                            foreach (Category c in qc)
+                            {
+                                if (c.ParentCategory == Model.Product.SubCategory.Category.ParentCategory)
+                                {
+                                    if (c.CategoryId == Model.Product.SubCategory.CategoryId)
+                                    {
+                                        <option value="@c.CategoryId" selected parentCategory="@c.ParentCategory">@c.CategoryName</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@c.CategoryId" parentCategory="@c.ParentCategory">@c.CategoryName</option>
+                                    }
+
+                                }
+                                else
+                                {
+                                    <option value="@c.CategoryId" style="display:none" parentCategory="@c.ParentCategory">@c.CategoryName</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+            @*SubCategory*@
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label class="control-label">商品次分類</label>
+                </i>
+                <div class="col-md-10">
+                    <select id="SubCategory" name="SubCategoryId" class="form-select " aria-label=".form-select-sm example">
+                        <option value="none" selected disabled hidden>請選擇選項</option>
+                        @{
+                            var qsc = from sc in db.SubCategories where sc.SubCategoryName != "不限" select sc;
+                            foreach (SubCategory sc in qsc)
+                            {
+                                if (sc.CategoryId == Model.Product.SubCategory.CategoryId)
+                                {
+                                    if (sc.SubCategoryId == Model.SubCategoryId)
+                                    {
+                                        <option value="@sc.SubCategoryId" selected Category="@sc.CategoryId">@sc.SubCategoryName</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@sc.SubCategoryId" Category="@sc.CategoryId">@sc.SubCategoryName</option>
+                                    }
+
+                                }
+                                else
+                                {
+                                    <option value="@sc.SubCategoryId" style="display:none" Category="@sc.CategoryId">@sc.SubCategoryName</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label asp-for="Price" class="control-label"></label>
+                </i>
+                <input id="input" asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label asp-for="Cost" class="control-label"></label>
+                </i>
+                <input id="input" asp-for="Cost" class="form-control" />
+                <span asp-validation-for="Cost" class="text-danger"></span>
+            </div>
+            @*Supplier*@
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label class="control-label">供應商</label>
+                </i>
+                <div class="col-md-10">
+                    <select id="input" name="SupplierId" class="form-select " aria-label=".form-select-sm example">
+                        @{
+                            var q = from s in db.Suppliers select s;
+                            foreach (Supplier s in q)
+                            {
+                                if (s.SupplierId == Model.SupplierId)
+                                {
+                                    <option value="@s.SupplierId" selected>@s.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@s.SupplierId">@s.Name</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group form-check" hidden>
+                <label class="form-check-label">
+                    <input name="IsPet" value="true" />
+                </label>
+            </div>
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label asp-for="Description" class="control-label"></label>
+                </i>
+                <input id="input" asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label asp-for="UnitsInStock" class="control-label"></label>
+                </i>
+                <input id="input" asp-for="UnitsInStock" class="form-control" />
+                <span asp-validation-for="UnitsInStock" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group" style="text-align:right">
+                <i class="fa-solid fa-floppy-disk"><input type="submit" value="儲存" id="input" /></i>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-6" style="border-left:2px dotted CHOCOLATE;">
+        <div class="row ">
+            <div style="height:250px" class="col-4">
+                <div class=" row" style="justify-content:center;align-items:center;" ;>
+                   <div class="col-2"></div> <div class="col-8">
+                        @{
+                            if (Model.Product.Photos.FirstOrDefault(ph => ph.IsDefault == true) != null)
+                            {
+                                <img id="imgDefault" src="~/Images/@Model.Product.Photos.FirstOrDefault(ph=>ph.IsDefault==true).PictureName" style="width:150px;height:150px " class="col-12" />
+                            }
+                            else
+                            {
+                                <img id="imgDefault" src="~/Images/Default.jpg" style="width:150px;height:150px" class="col-12" />
+                            }
+                        }
+                    </div>
+                   <div class="col-2"></div>
+                    
+                    <h6 class="m-3"><b>預設圖片</b></h6>
+                </div>
+            </div>
+            <div class="col-8 row" style="border-left:solid 1px gray">
+                <form class="col-md-12 row" action="~/Product/Delete_Images" method="post" enctype="multipart/form-data" >
+                    @{
+                        if (Model.Product.Photos.Count > 0)
+                        {
+                            foreach (var photo in Model.Product.Photos)
+                            {
+                                <img src="~/Images/@photo.PictureName" PictureID=@photo.PictureId style="width: 150px; height: 150px" class="img col-4" onclick="img_active()" />
+                            }
+
+                        }
+                    }
+                <div class="row col-12 m-2">
+                    <input type="hidden" name="ProductId" value="@Model.ProductId" />
+                    <input type="hidden" name="Delete_Images" id="Delete_Images" />
+                    <input type="button" onclick="SetDefault()" value="設定預設" class="col-4 btn-success" />
+                    <input type="submit" value="刪除預設" onclick="Delete_Image_Submit()" class="col-4 btn-danger" /><br />
+                </div>
+                </form>
+                
+            </div>
+        </div>
+
+
+        <div></div>
+
+
+
+
+
+        <form action="~/Product/Add_Image" method="post" enctype="multipart/form-data" style="border-top:1px dashed blue">
+            
+            <div style="text-align:center;height:50px"></div>
+            <div style="text-align:center;height:200px">
+                <h3>新增圖片</h3>
+                <div id="imgPreview"></div>
+                <input type="hidden" name="ProductId" value="@Model.ProductId" />
+                <div style="text-align:center;height:50px"></div>
+                <input type="file" name="File" accept=".png, .jpg, .jpeg" required multiple id="File" />
+
+            </div>
+                <input class="btn-success" type="submit" value="上傳" style="display:block;margin:auto" />
+</form>
+        
+    </div>
+</div>
+
+
+<input type="text" style="font-size:300%" id="div" value="1232313" hidden>
+
+@section Scripts {
+    <script>
+        //連動選單 隱藏option
+        //console.log($("#div"))
+        $("#Pet").change(function () {
+            $("#Category option").hide();
+            $("#Category").val("none");
+            let parentID = this.value;
+            $(`#Category option[parentCategory=${parentID}]`).show();
+            //console.log($(`#Category option[parentCategory=${parentID}]`));
+            $("#Category").trigger("change");
+        });
+
+        $("#Category").change(function () {
+            $("#SubCategory option").hide();
+            $("#SubCategory").val("none");
+            let CategoryID = this.value;
+            $(`#SubCategory option[Category=${CategoryID}]`).show();
+        });
+
+    </script>
+    <script>
+        //上傳圖片相關
+    function img_active() {
+        $(event.currentTarget).toggleClass("img_selected");
+        }
+        function SetDefault()
+        {
+            let imgSelected = $(".img_selected");
+            if (imgSelected.length > 1)
+            {
+                alert("只能選擇一張圖片作為預設圖片")
+                return;
+            }
+            else if (imgSelected.length == 0) return;
+            //console.log(imgSelected.first().attr("PictureID"));
+            $.get("@Url.Content("~/Product/SetDefault")", { id: imgSelected.first().attr("PictureID") }, (data) =>
+            {
+                if (data == true)
+                {
+                    alert("更改成功");
+                    $("#imgDefault").attr("src", imgSelected.attr("src"));
+                    imgSelected.toggleClass("img_selected")
+                }
+                else
+                {
+                    alert("更改失敗")
+                }
+            })
+        }
+        function Delete_Image_Submit()
+        {
+            let imgSelected = $(".img_selected");
+            if (imgSelected.length == 0) event.preventDefault();
+            let d = $("#Delete_Images");
+            let result = "";
+            imgSelected.each(function (index, element)
+            {
+                result += (element.getAttribute("PictureID")+"/");
+                })
+            d.val(result);
+            //console.log(d.val());
+        }
+
+        $("#File").on("change", function ()
+        {
+
+            readURL(this);
+        })
+        function readURL(input)
+        {
+            if (input.files && input.files.length>0)
+            {
+                let div = $("#imgPreview");
+                div.empty();
+                for (f of input.files)
+                {
+                    var reader = new FileReader();
+                    reader.onload = function (e)
+                    {
+                        div.append(`<img src="${e.target.result}" style="width:150px"/>`);
+                        //$("#preview_progressbarTW_img").attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(f);
+                }
+            }
+        }
+
+    </script>
+
+}

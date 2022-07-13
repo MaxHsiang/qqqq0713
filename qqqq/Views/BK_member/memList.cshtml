@@ -1,0 +1,195 @@
+﻿@model IEnumerable<Pet.ViewModels.CMemberView>
+
+@{
+    ViewData["Title"] = "List";
+    Layout = "_BackLayout";
+}
+@section Styles{
+    <style>
+        #thead > tr > th {
+            font-size: 18px;
+            font-weight: 800;
+            color: black;
+        }
+
+        #thead > tr {
+            border: solid antiquewhite 2px;
+            background-color: antiquewhite;
+        }
+
+        #tbody > tr {
+            border: solid antiquewhite 2px;
+            background-color: antiquewhite;
+            font-size: 16px;
+            font-weight: 600;
+        }
+    </style>
+}
+<h1 style="text-align:center; font-weight:900">會員管理系統</h1>
+<div style="text-align:left; font-size:16px ; font-weight:600">
+    @using (Html.BeginForm())
+    {
+        @:關鍵字 @Html.TextBox("txtKeyword", (object)@ViewBag.keyword, new { @style = "border-radius:30px;" })
+        <button class="fa-solid fa-magnifying-glass" style=" border:none; background-color:transparent;"></button>
+
+        <a asp-action="Create" class="fa-solid fa-user-plus" style="margin-top:8PX; float:right;font-size:20px;color:chocolate;">新增會員</a>
+    }
+</div>
+<br />
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="~/css/BK_style.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="row mb-5">
+        <table class="table">
+            <thead id="thead" style="text-align:center;">
+                <tr style="font-size:20px">
+                    @*<th>
+                            @Html.DisplayNameFor(model => model.MemberID)
+                        </th>*@
+                    <th>
+                        序
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MemberPhoto)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MemberName)
+                    </th>
+                    @*<th>
+                            @Html.DisplayNameFor(model => model.MemberPassword)
+                        </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.MemberPhone)
+                    </th>
+                    @*<th>
+                            @Html.DisplayNameFor(model => model.MemberAddress)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.MemberCityName)
+                        </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.MemberNewBirthDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MemberEmail)
+                    </th>
+                    <th colspan=3>
+                        功能
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody id="tbody" style="text-align:center;">
+                @{int count = 0;
+                    foreach (var item in Model)
+                    {
+                        count++;
+                        <tr>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.MemberID)
+                                </td>*@
+                            <td>
+                                @count
+                            </td>
+                            <td>
+                                <img src="~/images/person_1.jpg" style="border-radius:50%" width="60" height="60" />
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MemberName)
+                            </td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.MemberPassword)
+                                </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MemberPhone)
+                            </td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.MemberAddress)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MemberCityName)
+                                </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MemberNewBirthDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MemberEmail)
+                            </td>
+                            <td>
+                                <button data-toggle="modal" data-target="#myModal" Class="fa-solid fa-list" id="@item.MemberID" onclick="test(this.id)"
+                                        style="border:none; background-color:transparent;color:chocolate;font-size:16px">
+                                    @*@Html.ActionLink("", "Detail", "Member", new { id = item.MemberID }, new { Class = "fa-solid fa-list" })*@
+                                </button>
+                            </td>
+                            <td>
+                                @Html.ActionLink("", "Edit", "BK_member", new { id = item.MemberID }, new { Class = "fa-solid fa-wrench", @style = "color:chocolate;font-size:16px" })
+                            </td>
+                            <td>
+                                @Html.ActionLink("", "Delete", "BK_member", new { id = item.MemberID }, new { Class = "fa-solid fa-trash-can", @style = "color:chocolate;font-size:16px", onclick = "return confirm('請確認是否要刪除?')" })
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content" style="background-color:wheat" font-family:標楷體>
+                <div class="modal-header" style="display: flex; justify-content: center; align-items: center;">
+                    <h3 style="display:flex; font-weight:900; color:black; ">浪浪資料明細</h3>
+                </div>
+                <div class="modal-body" style="background-color:antiquewhite; font-weight:400">
+
+                    <p style="text-align: center;color:black">姓名:陳國旺</p>
+                    <p style="text-align: center; color: black">性別:男生</p>
+                    <p style="text-align: center; color: black">手機:0931031031</p>
+                    <p style="text-align: center; color: black">密碼:031</p>
+                    <p style="text-align: center; color: black">地址:臺南市善化區陽光北一路4號</p>
+                    <p style="text-align: center; color: black">生日:1980/7/6</p>
+                    <p style="text-align: center; color: black">Email:031031@gmail.com</p>
+                </div>
+                <div class="modal-footer" style="background-color:wheat">
+                    <button type="button" style="color:chocolate; border:none;background-color:transparent" class="fa-solid fa-right-from-bracket" data-dismiss="modal"> 返回</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    @*@section Scripts{
+            <script>
+                function test(event) {
+                    let id = event;
+                    console.log(event);
+                    let xhr = new XMLHttpRequest();
+                    xhr.addEventListener("load", () => {
+                        let data = xhr.responseText;
+
+                    })
+                    xhr.open('POST', '@Url.Content("~/Member/showDetail")');
+                    xhr.send(`str = ${id}`);
+                }
+            </script>
+        }*@
+</body>
+</html>
+
+
+
+
+.

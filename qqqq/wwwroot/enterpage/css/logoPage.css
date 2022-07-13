@@ -1,0 +1,28 @@
+﻿@keyframes typing {
+	0% {
+		width: 0;
+	}
+
+}
+
+
+@keyframes caret {
+
+	50% {
+		border-right-color: transparent;
+	}
+}
+
+
+.typping {
+	margin-left: 30%;
+	margin-top: 50px;
+	font-weight: 900;
+	user-select: none;
+	font-family: Consolas;
+	white-space: nowrap;
+	overflow: hidden;
+	border-right: .05em solid;
+	animation-name: typing;
+	animation: typing 2s, caret 0.8s steps(1) infinite;
+}

@@ -1,0 +1,89 @@
+﻿<div class="container-fluid  py-6 wow fadeIn" data-wow-delay="0.1s" style=" margin-bottom: 6rem; background: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)),url(../img/head-5.jpg) center center no-repeat; background-size: cover;">
+    <div class="container text-center pt-5 pb-3">
+        <h1 class="display-4 text-white animated slideInDown mb-3">結帳</h1>
+    </div>
+</div>
+@{
+    ViewData["Title"] = "Pay";
+}
+<div class="container col-md-6 col-sm-12">
+    <h1>結帳</h1>
+    <br />
+    <form>
+        <fieldset>
+            <legend class="title"><b>選擇付款及運送方式</b></legend>
+            <br />
+            <div class="form-group alert alert-warning ">
+                <h5>
+                    <label class="control-label col-12">付款方式</label>
+                </h5>
+                <label class="col-md-4 col-sm-12"> <input type="radio" name="pay" /><b>信用卡</b></label>
+
+                <label class="col-md-4 col-sm-12"> <input type="radio" name="pay" /><b>貨到付款</b></label>
+
+                <label class="col-md-4 col-sm-12"> <input type="radio" name="pay" /><b>LinePay</b></label>
+
+                <span for="Pay" class="text-danger"></span>
+            </div><br />
+            <div class="form-group alert alert-warning">
+                <h5>
+                    <label class="control-label">運送方式</label>
+                </h5>
+                <label class="col-md-4 col-sm-12"> <input type="radio" name="send" /><b>宅配</b></label>
+
+                <label class="col-md-4 col-sm-12"> <input type="radio" name="send" /><b>7-11取貨</b></label>
+
+                <label class="col-md-4 col-sm-12"> <input type="radio" name="send" /><b>全家取貨</b></label>
+                <span for="Pay" class="text-danger"></span>
+            </div>
+        </fieldset>
+        <hr />
+        <fieldset>
+            <legend class="title"><b>運送資訊</b></legend>
+            <br />
+            <div class="form-group alert alert-success ">
+                <h5>
+                    <label class="control-label col-12">購買人資料      <input type="checkbox" />同會員資料</label>
+                </h5>
+                <label class="col-md-4 col-sm-12">姓名: <input type="text" /><b></b></label>
+
+                <label class="col-md-4 col-sm-12">行動電話: <input type="tel" /><b></b></label>
+                <label class="col-md-6 col-sm-12 mt-3">聯絡電話(非必填): <input type="tel" /><b></b></label>
+                <br />
+                <label class="col-md-10 col-sm-12 mt-3"> Email: <input type="text" name="pay" class="col-10" /><b></b></label>
+                <label class="col-md-10 col-sm-12 mt-3"> 地址:  <input type="text" name="pay" class="col-10" /><b></b></label>
+                <span for="Pay" class="text-danger"></span>
+            </div><br />
+            <div class="form-group alert alert-success">
+                <h5>
+                    <label class="control-label">收件人資料        <input type="checkbox" />同購買人</label>
+                </h5>
+                <label class="col-md-4 col-sm-12">行動電話: <input type="tel" /><b></b></label>
+
+                <label class="col-md-10 col-sm-12 mt-3"> 地址:  <input type="text" name="pay" class="col-10" /><b></b></label>
+                <span for="Pay" class="text-danger"></span>
+            </div>
+        </fieldset>
+        <hr />
+        <fieldset>
+            <div class="form-group alert alert-info mt-4">
+                <h5>
+                    <label class="control-label">備註</label>
+                </h5>
+                <textarea class="mce-resize" rows="8" cols="100"></textarea>
+            </div>
+            <hr />
+            <div class="form-group alert alert-danger mt-4 ">
+                <h5>
+                    <label class="control-label">商品金額: @Model</label><br />
+                    <label class="control-label">運      費  : 60</label><br />
+                    <label class="control-label">總金額  : @(60+Model)</label>
+                </h5>
+            </div>
+        </fieldset>
+        <div>
+             <a>   @Html.ActionLink("確定", "shopping", "shopping", null, new { onclick = "return alert('訂單已成立')", @class = "btn btn-success" })</a>
+        </div>
+
+    </form>
+</div>

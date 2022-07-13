@@ -1,0 +1,105 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="container-fluid  py-6 wow fadeIn" data-wow-delay="0.1s" style=" margin-bottom: 6rem; background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url(../img/head-5.jpg) center center no-repeat; background-size: cover;">
+    <div class="container text-center pt-5 pb-3">
+        <h2 class="display-4 text-white animated slideInDown mb-3">志工</h2>
+    </div>
+</div>
+<!-- Spinner Start -->
+<div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-grow text-primary" role="status"></div>
+</div>
+<!-- Spinner End -->
+
+<!-- ================ category section start ================= -->
+<section class="section-margin--small mb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-3 col-lg-4 col-md-5">
+                <div class="sidebar-categories">
+                    <div id="datepicker"></div>
+                    <hr />
+                    <form action="#">
+                        <div class="head" style="background-color: burlywood; border-radius: 8px 8px 0 0; ">志工服務搜尋</div>
+                        <ul class="main-categories">
+                            <li class="filter-list"><input class="pixel-checkbox" type="checkbox" id="men" name="brand"><label for="men">活動支援</label></li><br />
+                            <li class="filter-list"><input class="pixel-checkbox" type="checkbox" id="women" name="brand"><label for="women">家訪志工</label></li><br />
+                            <li class="filter-list"><input class="pixel-checkbox" type="checkbox" id="accessories" name="brand"><label for="accessories">接送志工</label></li><br />
+                            <li class="filter-list"><input class="pixel-checkbox" type="checkbox" id="accessories1" name="brand"><label for="accessories1">掃除志工</label></li><br />
+                        </ul>
+                        <div class="head" style="background-color: burlywood; border-radius: 8px 8px 0 0; ">服務時間搜尋</div>
+                        <ul class="main-categories">
+                            <li class="filter-list"><input class="pixel-radio" type="radio" id="gionee" name="brand"><label for="gionee">全天</label></li><br />
+                            <li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="brand"><label for="apple">上午(0900-1200)</label></li><br />
+                            <li class="filter-list"><input class="pixel-radio" type="radio" id="asus" name="brand"><label for="asus">下午(1400-1700)</label></li><br />
+                        </ul>
+                        <input class="btn btn-primary rounded-pill py-3 px-5"style="color:#FFFFFF;background:#EAA636;margin:10px 80px"  type="submit" value="搜尋" />
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-xl-9 col-lg-8 col-md-7">
+                <!-- 搜尋欄 -->
+                <div class="filter-bar d-flex flex-wrap align-items-center">
+                    <div class="input-group filter-bar-search">
+                        <input type="text" placeholder="Search">
+                        <button type="button" class="input-group-append"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+                
+                <ul>
+                    <li id="li_start">
+                        @{
+                            foreach (var i in Model)
+                            {
+                                <div class="v_div">
+                                    <div class="v_pic_div" style="height:200px;">
+                                        <img src="~/img/volunteer/@i.ActivityPhoto" />
+                                    </div>
+                                    <div class="v_des_div">
+                                        @Html.ActionLink($"{ i.Title}", "Info", "Volunteer", new { id = i.ActivityID },new { @class = "ActivityTitle" })<br />
+                                        <div>服務時間 : @i.StartDate ~ @i.EndDate</div>
+                                        <div>服務類別 : @i.ActivityCategoryName</div>
+                                        <div>需求人數 : @i.PeopleInNeed 人</div><br />
+                                        @using (@Html.BeginForm("SignUp", "Volunteer", new { id = i.ActivityID }, FormMethod.Post))
+                                        {
+                                            <input class="btn btn-primary rounded-pill py-3 px-5"style="color:#FFFFFF;background:#EAA636" type="submit" value="報名"  />
+                                        }
+                                    </div>
+                                    <hr />
+                                </div>
+                            }
+                         }
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+@section Scripts{ 
+
+    <script>
+        $.datepicker.regional['zh-TW'] = {
+            dayNames: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"],
+            dayNamesMin: ["日", "一", "二", "三", "四", "五", "六"],
+            monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+            monthNamesShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+            prevText: "上月",
+            nextText: "次月",
+            weekHeader: "週"
+        };
+        $.datepicker.setDefaults($.datepicker.regional["zh-TW"]);
+        $(function () {
+            $("#datepicker").datepicker().css("font-size", "1.05em");
+        });
+        $(".ActivityTitle").css({ "font-size": "28px", "color": "cadetblue" });
+    </script>
+}

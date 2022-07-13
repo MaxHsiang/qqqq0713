@@ -1,0 +1,182 @@
+﻿@model IEnumerable<Pet.ViewModels.COrderView>
+
+@{
+    ViewData["Title"] = "List";
+    Layout = "_BackLayout";
+}
+
+@section Styles
+{
+    <style>
+        th {
+            white-space: nowrap
+        }
+
+        #thead > tr > th {
+            font-size: 18px;
+            font-weight: 800;
+            color: black;
+        }
+
+        #thead > tr {
+            border: solid antiquewhite 2px;
+            background-color: antiquewhite;
+        }
+
+        #tbody > tr {
+            border: solid antiquewhite 2px;
+            background-color: antiquewhite;
+            font-size: 16px;
+            font-weight: 600;
+        }
+    </style>
+}<h1 style="text-align:center; font-weight:900">訂單管理系統</h1>
+<div style="text-align:left; font-size:16px ; font-weight:600">
+    @using (Html.BeginForm())
+    {
+        @:關鍵字 @Html.TextBox("txtKeyword", (object)@ViewBag.keyword, new { @style = "border-radius:30px;" })
+        <button class="fa-solid fa-magnifying-glass" style=" border:none; background-color:transparent;"></button>
+    }
+</div>
+<br />
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="~/css/BK_style.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="row mb-5">
+        <table class="table">
+            <thead id="thead" style="text-align:center;">
+                <tr style="font-size:20px">
+                    <th>
+                        @Html.DisplayNameFor(model => model.OrderId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MemberId)
+                    </th>
+                    @*<th>
+                            @Html.DisplayNameFor(model => model.EmployeeId)
+                        </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.OrderDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SendAddress)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.OrderStatus)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.OrderMoney)
+                    </th>
+                    <th colspan=3>
+                        功能
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="tbody" style="text-align:center;">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OrderId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MemberId)
+                        </td>
+                        @*<td>
+                    @Html.DisplayFor(modelItem => item.EmployeeId)
+                </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OrderDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SendAddress)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OrderStatus)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OrderMoney)
+                        </td>
+                        <td>
+                            <button style="border:none; background-color:transparent;color:chocolate;font-size:16px" class="fa-solid fa-list btn-detail " OrderID=@item.OrderId></button>
+                        </td>
+                        <td>
+                            @Html.ActionLink("", "Edit", "Order", new { id = item.OrderId }, new { Class = "fa-solid fa-wrench", @style = "color:chocolate;font-size:16px" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("", "Delete", "Order", new { id = item.OrderId }, new { Class = "fa-solid fa-trash-can", @style = "color:chocolate;font-size:16px", onclick = "return confirm('確定要刪除嗎')" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- Button trigger modal -->
+    @*<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+        </button>*@
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 style="font-weight:700;" class="modal-title" id="exampleModalLabel">訂單細項</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="$('#exampleModal').modal('hide')"></button>
+                </div>
+                <div class="modal-body">
+                    <br />
+                    <div id="txtDetail"></div>
+                    <br />
+                </div>
+                
+                <div class="modal-footer">
+                    <button style="font-size:24px; color:chocolate; border:none;background-color:transparent" type="button"  data-bs-dismiss="modal" onclick="$('#exampleModal').modal('hide')">關閉</button>
+                    @*<button type="button" class="btn btn-primary">Save changes</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section Scripts{
+        <script>
+        $(".btn-detail").on("click", function()
+        {
+            $('#exampleModal').modal('show');
+            $.post("@Url.Content("~/Order/Detail")", { id: $(this).attr("OrderID") }, function (data)
+            {
+                data = JSON.parse(data);
+                //console.log(data);
+                let txtDetail = $("#txtDetail");
+                let txtTotalCost = $("#txtTotalCost");
+                txtDetail.empty();
+                txtTotalCost.empty();
+                $.each(data, (index, ele) =>
+                {
+
+                    let productAction = $(document.createElement("a"));
+
+                    productAction.attr("href", "@Url.Content("~/Product/SearchForID/")" + ele.ProductId);
+                    productAction.text(ele.ProductName);
+                    console.log(productAction);
+                    txtDetail.append(productAction);
+                    txtDetail.append(` :${ele.UnitPrice}NT$ * ${ele.Quantity}=${ele.Total}NT$ <br/>`);
+                })
+                $("#exampleModal").modal("show");
+            })
+
+         })
+        </script>
+    }
+</body>
+</html>

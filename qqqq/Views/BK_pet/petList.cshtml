@@ -1,0 +1,167 @@
+﻿@model IEnumerable<prjHomeLess.ViewModel.CPet>
+
+@{
+    ViewData["Title"] = "List";
+    Layout = "_BackLayout";
+
+}
+@section Styles{
+    <style>
+        #thead > tr > th {
+            font-size: 18px;
+            font-weight: 800;
+            color: black;
+        }
+
+        #thead > tr {
+            border: solid antiquewhite 2px;
+            background-color: antiquewhite;
+        }
+
+        #tbody > tr {
+            border: solid antiquewhite 2px;
+            background-color: antiquewhite;
+            font-size: 16px;
+            font-weight: 600;
+        }
+    </style>
+}
+<h1 style="text-align:center; font-weight:900">浪浪管理系統</h1>
+<div style="text-align:left; font-size:16px ; font-weight:600">
+    @using (Html.BeginForm())
+    {
+        @:關鍵字 @Html.TextBox("txtKeyword", (object)@ViewBag.keyword, new { @style = "border-radius:30px;" })
+        <button class="fa-solid fa-magnifying-glass" style=" border:none; background-color:transparent;"></button>
+
+        <a asp-action="Create" class="fa-solid fa-user-plus" style="margin-top:8PX; float:right;font-size:20px;color:chocolate;"> 新增浪浪</a>
+    }
+</div>
+<br />
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="~/css/BK_style.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="row">
+        <table class="table">
+            <thead id="thead" style="text-align: center; border: solid antiquewhite 2px; border-radius: 20px; background-color: antiquewhite;">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductId)
+                    </th>
+                    <th>
+                        照片
+                        @*@Html.DisplayNameFor(model => model.Product.Photos)*@
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CategoryName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SubCategoryName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductName)
+                    </th>
+                    @*<th>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.Continued)
+                    </th>
+                    <th colspan=3>
+                        功能
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="tbody" style="text-align:center;">
+                @{ int count = 0;
+                    foreach (var item in Model)
+                    {
+                        count++;
+                        <tr>
+                            <td>
+                                @count
+                            </td>
+                            <td>
+                                @*@Html.DisplayFor(modelItem => item.Product.Photos)*@
+                                <img src="~/images/Cat.jpg" style="border-radius:50%" width="60" height="60" />
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CategoryName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SubCategoryName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductName)
+                            </td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>*@
+                            <td>
+                                @*@Html.DisplayFor(modelItem => item.Continued)*@
+                                <p>
+                                    <input type="radio" />可供領養
+                                    <br />
+                                    <input type="radio" />暫無法領養
+                                </p>
+                            </td>
+                            <td>
+                                <button data-toggle="modal" data-target="#myModal" Class="fa-solid fa-list" id="@item.ProductId" onclick="test(this.id)"
+                                        style="border:none; background-color:transparent;color:chocolate;font-size:16px">
+                                    @*@Html.ActionLink("", "Detail", "Member", new { id = item.MemberID }, new { Class = "fa-solid fa-list" })*@
+                                </button>
+                            </td>
+                            <td>
+                                @Html.ActionLink("", "Edit", "BK_pet", new { id = item.ProductId }, new { Class = "fa-solid fa-wrench", @style = "color:chocolate;font-size:16px" })
+                            </td>
+                            <td>
+                                @Html.ActionLink("", "Delete", "BK_pet", new { id = item.ProductId }, new { Class = "fa-solid fa-trash-can", @style = "color:chocolate;font-size:16px", onclick = "return confirm('請確認是否要刪除?')" })
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content" style="background-color:wheat" font-family:標楷體>
+                <div class="modal-header" style="display: flex; justify-content: center; align-items: center;">
+                    <h3 style="display:flex; font-weight:900; color:black; ">浪浪資料明細</h3>
+                </div>
+                <div class="modal-body" style="background-color:antiquewhite; font-weight:400">
+
+                    <p style="text-align: center;color:black">浪浪:貓老大</p>
+                    <p style="text-align: center; color: black">性別:公</p>
+                    <p style="text-align: center; color: black">毛色:虎斑</p>
+                    <p style="text-align: center; color: black">體型:中型</p>
+                    <p style="text-align: center; color: black">年齡:成年</p>
+                    <p style="text-align: center; color: black">城市:基隆市</p>
+                    <p style="text-align: center; color: black">年花費:38000</p>
+                    <p style="text-align: center; color: black">周陪伴時間:10小時</p>
+                    <p style="text-align: center; color: black">居住空間:10坪</p>
+                    <p style="text-align: center; color: black">結紮:是</p>
+                    <p style="text-align: center; color: black">描述:性格穩定</p>
+                </div>
+                <div class="modal-footer" style="background-color:wheat">
+                    <button type="button" style="color:chocolate; border:none;background-color:transparent" class="fa-solid fa-right-from-bracket" data-dismiss="modal"> 返回</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

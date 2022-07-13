@@ -1,0 +1,134 @@
+﻿@{ 
+    Layout = "";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link href="~/enterpage/css/anime.css" rel="stylesheet" />
+    <link href="~/enterpage/css/logoPage.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style>
+        * {
+            width: 100vw;
+            height: 100%;
+        }
+
+        .div1 {
+        }
+
+        .dog {
+            position: absolute;
+            width: 3000px;
+            opacity: 0.3;
+            top: 0;
+            bottom: -2000px;
+            left: -2000px;
+            right: auto;
+            /*display: none;*/
+        }
+
+        .cat {
+            position: absolute;
+            width: 3000px;
+            opacity: 0.3;
+            top: -5000px;
+            bottom: 0;
+            left: auto;
+            right: -5000px;
+            /*display: none;*/
+        }
+
+        .divimg {
+            display: inline-block;
+            justify-content: center;
+            align-content: center;
+            width: 67vw;
+            top: 50vh;
+            left: 33vw;
+            float: left;
+        }
+
+            .divimg > .word {
+                margin: 50px;
+                width: 180px;
+                left: 0px;
+                flex: none;
+            }
+
+        .typ {
+            top: 180px;
+            top: auto;
+            left: auto;
+            text-align: center;
+        }
+
+        .typping {
+            font-size: 80px;
+            text-align: center;
+            color: black;
+            left: 0px;
+        }
+    </style>
+    <title></title>
+</head>
+<body>
+    <div class="div1">
+        <div>
+            <img class="dog" id="dog1" src="~/enterpage/images/anime/77logodog.png" onClick="window.location.href=('enterpage.html');" />
+            <img class="cat" id="cat2" src="~/enterpage/images/anime/77logocat.png" onClick="window.location.href=('enterPage.html');" />
+        </div>
+
+        <!--<div class="divimg">
+            <img class="word" id="wordi" src="images/logoPage/77logoi.png" />
+            <img class="word" id="wordsave" src="images/logoPage/77save.png" />
+            <img class="word" id="wordwave" src="images/logoPage/77wave.png" />
+        </div>
+        <div class="typ">
+            <h1 class="typping">ANIMAL SHELTER</h1>
+        </div>-->
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"></script>
+
+    <script>
+        //飛圖
+        $(document).ready(function () {
+            $("#dog1").animate({
+                "top": "10%",
+                "left": "30%",
+                width: "800px",
+                height: "800px",
+                opacity: 1
+            }, 500);
+            $("#cat2").animate({
+                "top": "10%",
+                "left": "30%",
+                width: "800px",
+                height: "800px",
+                opacity: 1
+            }, 800);
+        });
+
+            ////打字javascript
+            //const doc = document.querySelector('h1')
+            //let len = doc.textContent.length, s = doc.style
+            //s.width = len + 'ch'
+            //s.animationTimingFunction = 'steps(' + len + ')'
+
+
+            ////我救浪
+            //$(document).ready(function () {
+            //    $("#wordi").delay(300).fadeIn(800),
+            //        $("#wordsave").delay(1000).fadeIn(800),
+            //        $("#wordwave").delay(1500).fadeIn(800)
+
+            //});
+                ////定時轉跳進入頁面
+                setTimeout(function () {
+                    location.href ="/homepage/homepage"
+                    }, 2000)
+    </script>
+</body>
+</html>

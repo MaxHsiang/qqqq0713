@@ -1,0 +1,68 @@
+﻿@model qqqq.ViewModels.CSubCategoryPet
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "_BackLayout";
+
+}
+@section Styles{
+    <style>
+    #input{
+        border:solid antiquewhite 2px;
+        border-radius:20px;
+        color:black;
+        font-weight:400;
+        background-color:antiquewhite;
+    }
+    label {
+        color: black;
+        font-weight: 900;
+    }
+    }
+    </style>
+    <div>
+        <h1 style="font-weight:900; text-align:center; margin-top: 30px; margin-bottom: 10px">浪浪品種修改</h1>
+    </div>
+    <div style="text-align:right; margin-right:10px; text-decoration:none">
+        <a asp-action="sbpetList" style="color:chocolate;" class="fa-solid fa-right-from-bracket"> 返回</a>
+    </div>
+    <hr />
+
+    <div class="row" style="padding-bottom:90px; display:flex;justify-content:center;align-items:center">
+        <div class="col-md-4">
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group" hidden>
+                    <label asp-for="SubCategoryId" class="control-label"></label>
+                    <input asp-for="SubCategoryId" class="form-control" />
+                    <span asp-validation-for="SubCategoryId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <i class="fa-solid fa-paw">
+                        <label asp-for="CategoryName" class="control-label"></label>
+                    </i>
+                    <input id="input" readonly asp-for="CategoryName" class="form-control" />
+                    <span asp-validation-for="CategoryName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <i class="fa-solid fa-paw">
+                        <label asp-for="SubCategoryName" class="control-label"></label>
+                    </i>
+                    <input id="input" asp-for="SubCategoryName" class="form-control" />
+                    <span asp-validation-for="SubCategoryName" class="text-danger"></span>
+                </div>
+                <div class="form-group" hidden>
+                    <label asp-for="CategoryId" class="control-label"></label>
+                    <input asp-for="CategoryId" class="form-control" />
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="text-align:right">
+                    <i class="fa-solid fa-floppy-disk"><input type="submit" value="儲存" id="input" /></i>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

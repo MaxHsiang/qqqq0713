@@ -1,0 +1,321 @@
+﻿<!-- Navbar-->
+@model Pet.ViewModels.CLoginView
+
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+
+<style>
+
+
+    /*
+    *
+    * ==========================================
+    * CUSTOM UTIL CLASSES
+    * ==========================================
+    *
+    */
+
+    .border-md {
+        border-width: 2px;
+    }
+
+    .btn-facebook {
+        background: #405D9D;
+        border: none;
+    }
+
+        .btn-facebook:hover, .btn-facebook:focus {
+            background: #314879;
+        }
+
+    .btn-twitter {
+        background: #42AEEC;
+        border: none;
+    }
+
+        .btn-twitter:hover, .btn-twitter:focus {
+            background: #1799e4;
+        }
+
+
+
+    /*
+    *
+    * ==========================================
+    * FOR DEMO PURPOSES
+    * ==========================================
+    *
+    */
+
+    body {
+        min-height: 100vh;
+    }
+
+    .form-control:not(select) {
+        padding: 1.5rem 0.5rem;
+    }
+
+    select.form-control {
+        height: 52px;
+        padding-left: 0.5rem;
+    }
+
+    .form-control::placeholder {
+        color: #ccc;
+        font-weight: bold;
+        font-size: 0.9rem;
+    }
+
+    .form-control:focus {
+        box-shadow: none;
+    }
+</style>
+<link href="~/css_Q/css/style_A.css" rel="stylesheet" />
+
+<div class="container-fluid  py-6 wow fadeIn" data-wow-delay="0.1s" style=" margin-bottom: 6rem; background: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)),url(../img/head-5.jpg) center center no-repeat; background-size: cover;">
+    <div class="container text-center pt-5 pb-3">
+        <h1 class="display-4 text-white animated slideInDown mb-3">結帳</h1>
+    </div>
+</div>
+<header class="header">
+    <nav class="navbar navbar-expand-lg navbar-light py-3">
+        <div class="container">
+            <!-- Navbar Brand -->
+            <a href="#" class="navbar-brand">
+                <img src="https://bootstrapious.com/i/snippets/sn-registeration/logo.svg" alt="logo" width="150">
+            </a>
+        </div>
+    </nav>
+</header>
+
+
+<div class="container">
+    <div class="row py-5 mt-4 align-items-center">
+        <!-- For Demo Purpose -->
+        <div class="col-md-5 pr-lg-5 mb-5 mb-md-0">
+            <img src="~/css_Q/Images/222.jpg" alt="" id="memberPicture" class="img-fluid mb-3 d-none d-md-block" />
+
+            <h1>帳號註冊</h1>
+            <p class="font-italic text-muted mb-0">建立會員後可進行購物以及領養程序</p>
+            <p class="font-italic text-muted">
+                了解詳情 <a href="#我就浪首頁" class="text-muted">
+                    <u>Bootstrapious</u>
+                </a>
+            </p>
+        </div>
+
+        <!-- Registeration Form -->
+        <div class="col-md-7 col-lg-6 ml-auto">
+            <form asp-action="Register" enctype="multipart/form-data">
+                <!-- hidden -->
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group" hidden>
+                    <input name="MemberID" class="form-control" />
+                </div>
+                <div class="form-group" hidden>
+                    <label asp-for=" Photo" class="control-label"></label>
+                    <input asp-for="Photo" class="form-control" />
+                    <span asp-validation-for="Photo" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+
+                    <!-- Name -->
+
+                    <div class="input-group col-lg-6 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-user text-muted"></i>
+                            </span>
+                        </div>
+                        <input id="firstName" type="text" asp-for="Name" placeholder="姓名" class="form-control bg-white border-left-0 border-md">
+
+
+                    </div>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+
+                    <!-- Last Name
+                    <div class="input-group col-lg-6 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </span>
+                        </div>
+                        <input id="lastName" type="text" name="lastname" placeholder="Last Name" class="form-control bg-white border-left-0 border-md">
+                    </div>-->
+                    <!-- Email Address -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-envelope text-muted"></i>
+                            </span>
+                        </div>
+                        <input id="email" type="email" name="Email" placeholder="Email " class="form-control bg-white border-left-0 border-md">
+                    </div>
+
+                    <!-- Password -->
+                    <div class="input-group col-lg-6 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-lock text-muted"></i>
+                            </span>
+                        </div>
+                        <input id="password" type="password" asp-for="Password" placeholder="密碼" class="form-control bg-white border-left-0 border-md">
+
+                    </div>
+
+                    <!-- Password Confirmation -->
+                    <div class="input-group col-lg-6 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-lock text-muted"></i>
+                            </span>
+                        </div>
+                        <input id="passwordConfirmation" type="password" asp-for="PasswordConfirm" placeholder="再次輸入密碼" class="form-control bg-white border-left-0 border-md">
+                    </div>
+
+                    <!-- phone -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-phone-square text-muted"></i>
+                            </span>
+                        </div>
+                        <input asp-for="MemberPhone" id="MemberPhone" type="text" placeholder="手機號碼" class="form-control bg-white border-left-0 border-md">
+                    </div>
+                    <!--  address -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-phone-square text-muted"></i>
+                            </span>
+                        </div>
+                        <select id="selCity" asp-for="MemberCityName" style="max-width: 100px" class="custom-select form-control bg-white border-left-0 border-md h-100 font-weight-bold text-muted">
+                        </select>
+                        <input id="Address" type="tel" asp-for="Address" placeholder="地址" class="form-control bg-white border-md border-left-0 pl-3">
+                    </div>
+                    <!-- birthday -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-envelope text-muted"></i>
+                            </span>
+                        </div>
+                        <input asp-for="MemberBirthDate" class="form-control bg-white border-left-0 border-md" />
+
+                    </div>
+
+
+                    <!-- gender -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <label asp-for="HgenderId" class="control-label"></label>
+                                <input asp-for="HgenderId" type="radio" value="1" />男性
+                                <input asp-for="HgenderId" type="radio" value="2" />女性
+                        </div>
+                    </div>
+                    <!-- photo -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-envelope text-muted"></i>
+                            </span>
+                        </div>
+                        <input type="file" value="會員頭貼上傳" name=" File" class="form-control" id="File" />
+                    </div>
+
+
+
+
+
+
+                    <!-- Submit Button -->
+                    <div class="form-group col-lg-12 mx-auto mb-0">
+                        <input type="submit" value="註冊帳號" class="btn btn-primary btn-block py-2">
+                        <span class="font-weight-bold"></span>
+
+                    </div>
+
+                    <!-- Divider Text
+                    <div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
+                        <div class="border-bottom w-100 ml-5"></div>
+                        <span class="px-2 small text-muted font-weight-bold text-muted">OR</span>
+                        <div class="border-bottom w-100 mr-5"></div>
+                    </div>-->
+                    <!-- Social Login
+                    <div class="form-group col-lg-12 mx-auto">
+                        <a href="#" class="btn btn-primary btn-block py-2 btn-facebook">
+                            <i class="fa fa-facebook-f mr-2"></i>
+                            <span class="font-weight-bold">Continue with Facebook</span>
+                        </a>
+                        <a href="#" class="btn btn-primary btn-block py-2 btn-twitter">
+                            <i class="fa fa-twitter mr-2"></i>
+                            <span class="font-weight-bold">Continue with Twitter</span>
+                        </a>
+                    </div> -->
+                    <!-- Already Registered -->
+                    <div class="text-center w-100">
+                        <p class="text-muted font-weight-bold"> @Html.ActionLink("已是會員", "Login")</p>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="https://kit.fontawesome.com/45dc82861e.js" crossorigin="anonymous"></script>
+    <script>
+        // For Demo Purpose [Changing input group text on focus]
+        $(function () {
+            $('input, select').on('focus', function () {
+                $(this).parent().find('.input-group-text').css('border-color', '#80bdff');
+            });
+            $('input, select').on('blur', function () {
+                $(this).parent().find('.input-group-text').css('border-color', '#ced4da');
+            });
+        });
+
+    </script>
+    <script>
+
+    const selCity = document.querySelector("#selCity");
+
+    async function loadCity() {
+        const response = await fetch('@Url.Content("~/Home/city")');
+        const data = await response.json();
+        data.forEach(city => {
+            const opt = new Option(city, city);
+            console.log(opt);
+            selCity.options.add(opt);
+
+
+        })
+    }
+    loadCity();
+    </script>
+    <script>
+        $("#File").on("change", function () {
+
+            readURL(this);
+        })
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#memberPicture").attr("src", e.target.result);
+                    //div.append(`<img src="${e.target.result}" style="width:150px"/>`);
+                    //$("#preview_progressbarTW_img").attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+}
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

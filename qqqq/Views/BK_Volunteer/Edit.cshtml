@@ -1,0 +1,125 @@
+﻿@model qqqq.ViewModels.BK_VActivityViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "_BackLayout";
+}
+@section Styles{
+    <style>
+        .input {
+            border: solid antiquewhite 2px;
+            border-radius: 20px;
+            color: black;
+            font-weight: 400;
+            background-color: antiquewhite;
+        }
+
+        label {
+            color: black;
+            font-weight: 900;
+        }
+    </style>
+}
+<div>
+    <h1 style="font-weight:900; text-align:center; margin-top: 30px; margin-bottom: 10px">修改活動</h1>
+</div>
+<div style="text-align:right; margin-right:10px; text-decoration:none">
+    <a asp-action="BK_VolunteerActivity" style="color:chocolate;" class="fa-solid fa-right-from-bracket">上一頁</a>
+</div>
+<hr />
+<div class="row" style="padding-bottom:90px; display:flex;justify-content:center;align-items:center">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" hidden>
+                <label asp-for="ActivityId" class="control-label"></label>
+                <input asp-for="ActivityId" class="form-control" />
+                <span asp-validation-for="ActivityId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label asp-for="Title" class="control-label"></label>
+                </i>
+                    <input asp-for="Title" class="form-control input" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label asp-for="ActivityCategoryName" class="control-label"></label>
+                </i>
+                    <input asp-for="ActivityCategoryName" class="form-control" id="catename" hidden />
+                    <select asp-for="ActivityCategoryName" class="form-control input" id="CateName" onchange="getText(this)">
+                    </select>
+                    <span asp-validation-for="ActivityCategoryName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label asp-for="StartDate" class="control-label"></label>
+                </i>
+                    <input asp-for="StartDate" class="form-control input" />
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label asp-for="EndDate" class="control-label"></label>
+                </i>
+                    <input asp-for="EndDate" class="form-control input" />
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group" hidden>
+                <label asp-for="ActivityCategoryId" class="control-label"></label>
+                <input asp-for="ActivityCategoryId" class="form-control input" />
+                <span asp-validation-for="ActivityCategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label asp-for="PeopleInNeed" class="control-label"></label>
+                </i>
+                    <input asp-for="PeopleInNeed" class="form-control input" />
+                    <span asp-validation-for="PeopleInNeed" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label class="control-label">活動照片</label><br />
+                </i>
+                    <img src="~/img/volunteer/@Model.ActivityPhoto" style="width:300px;" />
+                    <input type="file" name="photo" class="form-control input" />
+            </div>
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label asp-for="Description" class="control-label"></label>
+                </i>
+                    <textarea asp-for="Description" class="form-control input"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="text-align:right">
+                <i class="fa-solid fa-floppy-disk"><input type="submit" value="儲存" class="btn btn-primary input" /></i>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        let select = $("#CateName");
+        async function loadCateName() {
+            let res = await fetch('@Url.Content("~/BK_Volunteer/getCategoryName")');
+            let datas = await res.json();
+            let text = $("#catename").val();
+            datas.forEach(name => {
+                if (text == name) {
+                    select.append(new Option(name, name));
+                    $("option")[$("option").length - 1].setAttribute("selected", "selected");
+                } else {
+                    select.append(new Option(name, name))
+                }
+            });
+        }
+        loadCateName();
+
+        function getText(s) {
+            $("#catename").val(s.value)
+        }
+    </script>
+}

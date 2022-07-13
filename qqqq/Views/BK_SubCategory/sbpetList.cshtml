@@ -1,0 +1,107 @@
+﻿@model IEnumerable<qqqq.ViewModels.CSubCategoryPet>
+
+@{
+    ViewData["Title"] = "List";
+    Layout = "_BackLayout";
+
+}
+@section Styles{
+    <style>
+        #thead > tr > th {
+            font-size: 18px;
+            font-weight: 800;
+            color: black;
+        }
+
+        #thead > tr {
+            border: solid antiquewhite 2px;
+            background-color: antiquewhite;
+        }
+
+        #tbody > tr {
+            border: solid antiquewhite 2px;
+            background-color: antiquewhite;
+            font-size: 16px;
+            font-weight: 600;
+        }
+    </style>
+}
+<h1 style="text-align:center; font-weight:900">浪浪類別管理</h1>
+<div style="text-align:left; font-size:16px ; font-weight:600">
+    @using (Html.BeginForm())
+    {
+        @:關鍵字 @Html.TextBox("txtKeyword", (object)@ViewBag.keyword, new { @style = "border-radius:30px;" })
+        <button class="fa-solid fa-magnifying-glass" style=" border:none; background-color:transparent;"></button>
+
+        <a asp-action="Create" class="fa-solid fa-user-plus" style="margin-top:8PX; float:right;font-size:20px;color:chocolate;"> 新增浪浪類別</a>
+    }
+</div>
+<br />
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="~/css/BK_style.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="row ">
+        <table class="table">
+            <thead id="thead" style="text-align:center;">
+                <tr style="font-size:20px">
+                    <th>
+                        @Html.DisplayNameFor(model => model.SubCategoryId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CategoryName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SubCategoryName)
+                    </th>
+                    <th hidden>
+                        @Html.DisplayNameFor(model => model.CategoryId)
+                    </th>
+
+                    <th colspan=3>
+                        功能
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="tbody" style="text-align:center;">
+                @{ int Count = 0;
+                    foreach (var item in Model)
+                    {
+                        Count++;
+                        <tr>
+                            <td>
+                                @Count
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CategoryName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SubCategoryName)
+                            </td>
+                            <td hidden>
+                                @Html.DisplayFor(modelItem => item.CategoryId)
+                            </td>
+
+                            <td>
+                                @Html.ActionLink("", "Edit", "BK_SubCategory", new { id = item.SubCategoryId }, new { Class = "fa-solid fa-wrench", @style = "color:chocolate;font-size:16px" })
+                            </td>
+                            <td>
+                                @Html.ActionLink("", "Delete", "BK_SubCategory", new { id = item.SubCategoryId }, new { Class = "fa-solid fa-trash-can", @style = "color:chocolate;font-size:16px", onclick = "return confirm('請確認是否要刪除?')" })
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

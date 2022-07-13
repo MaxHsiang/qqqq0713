@@ -1,0 +1,113 @@
+﻿@model Pet.ViewModels.CMemberView
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "_BackLayout";
+}
+@section Styles{
+    <style>
+        #input {
+            border: solid antiquewhite 2px;
+            border-radius: 20px;
+            color: black;
+            font-weight: 400;
+            background-color: antiquewhite;
+        }
+
+        label {
+            color: black;
+            font-weight: 900;
+        }
+    </style>
+}
+    
+
+
+
+    <div>
+        <h1 style="font-weight:900; text-align:center; margin-top: 30px; margin-bottom: 10px">會員修改</h1>
+    </div>
+    <div style="text-align:right; margin-right:10px; text-decoration:none">
+    <a asp-action="memList" style="color:chocolate;" class="fa-solid fa-right-from-bracket"> 返回</a>
+    </div>
+    <hr />
+    <div class="row" style="padding-bottom:90px; display:flex;justify-content:center;align-items:center">
+        <div class="col-md-4">
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group" hidden>
+                    <label asp-for="MemberID" class="control-label"></label>
+                    <input id="input" asp-for="MemberID" class="form-control" />
+                    <span asp-validation-for="MemberID" class="text-danger"></span>
+                </div>
+
+                <div @*class="fa-solid fa-paw"*@ class="form-group">
+                    <i class="fa-solid fa-paw"><label asp-for="MemberPhoto" class="control-label"></label></i>
+                    <input type="file" id="input" asp-for="MemberPhoto" class="form-control" />
+                    <span asp-validation-for="MemberPhoto" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <i class="fa-solid fa-paw"><label asp-for="MemberName" class="control-label"></label></i>
+                    <input id="input" asp-for="MemberName" class="form-control" />
+                    <span asp-validation-for="MemberName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <i class="fa-solid fa-paw">
+                        <label asp-for="MemberBirthDate" class="control-label"></label>
+                    </i>
+                    <input type="date" id="input" asp-for="MemberBirthDate" class="form-control" />
+                    <span asp-validation-for="MemberBirthDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <i class="fa-solid fa-paw">
+                        <label asp-for="MemberPhone" class="control-label"></label>
+                    </i>
+                    <input id="input" asp-for="MemberPhone" class="form-control" />
+                    <span asp-validation-for="MemberPhone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <i class="fa-solid fa-paw">
+                        <label asp-for="MemberPassword" class="control-label"></label>
+                    </i>
+                    <input id="input" asp-for="MemberPassword" class="form-control" />
+                    <span asp-validation-for="MemberPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group" hidden>
+                    <i class="fa-solid fa-paw">
+                        <label asp-for="MemberCityID" class="control-label"></label>
+                    </i>
+                    <input id="input" asp-for="MemberCityID" class="form-control" />
+                    <span asp-validation-for="MemberCityID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <i class="fa-solid fa-paw">
+                        <label asp-for="MemberCityName" class="control-label"></label>
+                    </i>
+                    <input id="input" asp-for="MemberCityName" class="form-control" />
+                    <span asp-validation-for="MemberCityName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <i class="fa-solid fa-paw">
+                        <label asp-for="MemberAddress" class="control-label"></label>
+                    </i>
+                    <input id="input" asp-for="MemberAddress" class="form-control" />
+                    <span asp-validation-for="MemberAddress" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <i class="fa-solid fa-paw">
+                        <label asp-for="MemberEmail" class="control-label"></label>
+                    </i>
+                    <input id="input" asp-for="MemberEmail" class="form-control" />
+                    <span asp-validation-for="MemberEmail" class="text-danger"></span>
+                </div>
+
+                <div class="form-group" style="text-align:right">
+                    <i class="fa-solid fa-floppy-disk"><input type="submit" value="儲存" id="input" /></i>
+                </div>
+            </form>
+        </div>
+    </div>
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

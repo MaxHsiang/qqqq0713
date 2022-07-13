@@ -1,0 +1,127 @@
+﻿@model qqqq.ViewModels.BK_VActivityViewModel
+
+@{
+    Layout = "_BackLayout";
+}
+@section Styles{
+    <style>
+        .input {
+            border: solid antiquewhite 2px;
+            border-radius: 20px;
+            color: black;
+            font-weight: 400;
+            background-color: antiquewhite;
+        }
+
+        label {
+            color: black;
+            font-weight: 900;
+        }
+    </style>
+}
+<h1 style="font-weight: 900; text-align:center; margin-top: 30px; margin-bottom: 10px">新增活動</h1>
+<div style="text-align:right; margin-right:10px; text-decoration:none">
+    <a asp-action="BK_VolunteerActivity" class="fa-solid fa-right-from-bracket" style="color: chocolate;">上一頁</a>
+</div>
+<hr />
+<div class="row" style="padding-bottom:90px; display:flex;justify-content:center;align-items:center">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" hidden>
+                <label asp-for="ActivityId" class="control-label"></label>
+                <input asp-for="ActivityId" class="form-control input" />
+                <span asp-validation-for="ActivityId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label asp-for="Title" class="control-label"></label>
+                </i>
+                    <input asp-for="Title" class="form-control input" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label asp-for="ActivityCategoryName" class="control-label"></label>
+                </i>
+                    <select asp-for="ActivityCategoryName" class="form-control input" id="CateName">
+                    </select>
+                    <span asp-validation-for="ActivityCategoryName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label asp-for="StartDate" class="control-label" id="start"></label>
+                </i>
+                    <input asp-for="StartDate" class="form-control datepicker input" />
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label asp-for="EndDate" class="control-label" id="end"></label>
+                </i>
+                    <input asp-for="EndDate" class="form-control datepicker input" />
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group" hidden>
+                <label asp-for="ActivityCategoryId" class="control-label"></label>
+                <input asp-for="ActivityCategoryId" class="form-control" />
+                <span asp-validation-for="ActivityCategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label asp-for="PeopleInNeed" class="control-label"></label>
+                </i>
+                    <input asp-for="PeopleInNeed" class="form-control input" />
+                    <span asp-validation-for="PeopleInNeed" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label class="control-label">活動照片</label>
+                </i>
+                    <input type="file" class="form-control input" name="photo" />
+            </div>
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label asp-for="Description" class="control-label"></label>
+                </i>   
+                    <textarea asp-for="Description" class="form-control input"> </textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="text-align:right">
+                <i class="fa-solid fa-floppy-disk">
+                    <input type="submit" value="新增" class="input"/>
+                </i>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        $(function () {
+            $.datepicker.regional['zh-TW'] = {
+                dayNames: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"],
+                dayNamesMin: ["日", "一", "二", "三", "四", "五", "六"],
+                monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+                monthNamesShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+                prevText: "上月",
+                nextText: "次月",
+                weekHeader: "週"
+            };
+            $.datepicker.setDefaults($.datepicker.regional["zh-TW"]);
+            $(".datepicker").datepicker({ dateFormat: "yy-mm-dd" });
+        });
+
+
+        let select = $("#CateName");
+        async function loadCateName() {
+            let res = await fetch('@Url.Content("~/BK_Volunteer/getCategoryName")');
+            let datas = await res.json();
+            datas.forEach(name => {
+                select.append(new Option(name, name));
+            })
+        }
+        loadCateName();
+    </script>
+}

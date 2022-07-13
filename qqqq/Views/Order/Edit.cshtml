@@ -1,0 +1,298 @@
+﻿@model Pet.ViewModels.COrderView
+
+@{
+    ViewData["Title"] = "Edit";
+    我救浪Context db = new 我救浪Context();
+    Layout = "_BackLayout";
+
+}
+@section Styles{
+    <style>
+        th {
+            white-space: nowrap;
+        }
+
+        input {
+            justify-content: center;
+        }
+
+        button {
+            white-space: nowrap
+        }
+
+        td {
+            white-space: nowrap
+        }
+
+        .number {
+            width: 100px;
+        }
+
+        #thead > tr > th {
+            font-size: 18px;
+            font-weight: 800;
+            color: black;
+        }
+
+        #thead > tr {
+            border: solid antiquewhite 2px;
+            background-color: antiquewhite;
+        }
+
+        #tbody > tr {
+            border: solid antiquewhite 2px;
+            background-color: antiquewhite;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        #input, #BtnSubmit, #orderstatusid,
+        #orderdate, #orderid, #sendaddress,
+        #price, #productid, #productname, #quantity {
+            border: solid antiquewhite 2px;
+            border-radius: 20px;
+            color: black;
+            font-weight: 400;
+            background-color: antiquewhite;
+        }
+
+        label {
+            color: black;
+            font-weight: 900;
+        }
+    </style>
+}
+<div>
+    <h1 style="font-weight:900; text-align:center; margin-top: 30px; margin-bottom: 10px">會員修改</h1>
+</div>
+<div style="text-align:right; margin-right:10px; text-decoration:none">
+    <a asp-action="List" style="color:chocolate;" class="fa-solid fa-right-from-bracket"> 返回</a>
+</div>
+<hr />
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="~/css/BK_style.css" rel="stylesheet" />
+
+<div class="row" style="padding-bottom:90px; display:flex;justify-content:center;">
+    <div class="col-md-4"style="float:left">
+        <form asp-action="Edit" id="formOrder">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label asp-for="OrderId" class="control-label"></label>
+                </i>
+                <input readonly asp-for="OrderId" class="form-control" id="orderid" />
+                <span asp-validation-for="OrderId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label asp-for="MemberId" class="control-label"></label>
+                </i>
+                <input id="input" readonly asp-for="MemberId" class="form-control" />
+                <span asp-validation-for="MemberId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label asp-for="EmployeeId" class="control-label"></label>
+                </i>
+                <input id="input" readonly asp-for="EmployeeId" class="form-control" />
+                <span asp-validation-for="EmployeeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label asp-for="OrderDate" class="control-label"></label>
+                </i>
+                <input asp-for="OrderDate" class="form-control" id="orderdate" />
+                <span asp-validation-for="OrderDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label asp-for="SendAddress" class="control-label"></label>
+                </i>
+                <input asp-for="SendAddress" class="form-control" id="sendaddress" />
+                <span asp-validation-for="SendAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label asp-for="OrderStatus" class="control-label"></label>
+                </i>
+                <br />
+                <select id="orderstatusid">
+                    @{
+                        var status = db.OrderStatuses.ToList();
+                        foreach (var st in status)
+                            if (st.OrderStatusId == Model.OrderStatusId)
+                            {
+                                <option value="@st.OrderStatusId" selected>@st.StatusType</option>
+                            }
+                            else
+                            {
+                                <option value="@st.OrderStatusId">@st.StatusType</option>
+                            }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <i class="fa-solid fa-paw">
+                    <label asp-for="OrderMoney" class="control-label"></label>
+                </i>
+                <input id="input" asp-for="OrderMoney" class="form-control" />
+                <span asp-validation-for="OrderMoney" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="text-align:right">
+                <button id="BtnSubmit" class="fa-solid fa-floppy-disk">儲存</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-8">
+        <table class="table" >
+            <thead id="thead" style="text-align:center;">
+                <tr style="font-size:20px">
+                    <th>商品編號</th>
+                    <th>商品名稱</th>
+                    <th>單價</th>
+                    <th>數量</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="tbody" style="text-align:center;">
+                @{
+                    var q = db.OrderDetails.Where(od => od.OrderId == Model.OrderId).ToList();
+                    foreach (var od in q)
+                    {
+                        <tr>
+                            <td>@od.ProductId</td>
+                            <td>@od.Product.ProductName</td>
+                            <td><input class="form-control number" type="text" value="@(((decimal)od.UnitPrice).ToString("0")) " /></td>
+                            <td><input class="form-control number" type="number" value="@od.Quantity" /></td>
+                            <td><button style="font-size:24px; color:chocolate; border:none;background-color:transparent" class="fa-solid fa-trash-can"></button></td>
+                        </tr>
+
+
+                    }
+                }
+            </tbody>
+        </table>
+        <!-- Button trigger modal -->
+        <button type="button" class="fa-solid fa-cart-plus" style="font-size:18px; color:chocolate; border:none;background-color:transparent;" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="BtnModal" onclick="$('#staticBackdrop').modal('show')">
+            新增商品
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 style="font-weight:700;" class="modal-title" id="staticBackdropLabel">新增商品</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="$('#staticBackdrop').modal('hide')"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="detailform">
+                            <i class="fa-solid fa-paw">
+                                <label>商品編號</label>
+                            </i>
+                            <input type="number" class="form-control" id="productid" />
+                            <i class="fa-solid fa-paw">
+                                <label>商品名稱</label>
+                            </i>
+                            <input readonly type="text" class="form-control" id="productname" />
+                            <i class="fa-solid fa-paw">
+                                <label>單價</label>
+                            </i>
+                            <input type="number" class="form-control" id="price" />
+                            <i class="fa-solid fa-paw">
+                                <label>數量</label>
+                            </i>
+                            <input type="number" class="form-control" id="quantity" />
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="fa-solid fa-minus"style="font-size:18px; color:chocolate; border:none;background-color:transparent;" data-bs-dismiss="modal" onclick="$('#staticBackdrop').modal('hide')">取消</button>
+                        <button class="fa-solid fa-plus" style="font-size:18px; color:chocolate; border:none;background-color:transparent;" type="button" id="AddProduct">新增</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        $("tbody").on("click", ".btn-delete", function ()
+        {
+            console.log(1);
+            $(this).parents("tr").eq(0).remove();
+        })
+
+        $("#BtnModal").on("click", (data) => $("#detailform input").val(""));
+        $("#AddProduct").on("click",()=>
+        {
+            let tbody = $("tbody");
+            let result = "";
+            result += `                        <tr>
+                            <td>${$("#productid").val()}</td>
+                            <td>${$("#productname").val()}</td>
+                            <td><input class="form-control number" type="text" value="${$('#price').val()}" /></td>
+                            <td><input class="form-control number" type="number" value="${$('#quantity').val()}" /></td>
+                            <td><button style="font-size:24px; color:chocolate; border:none;background-color:transparent" class="fa-solid fa-trash-can btn-delete"></button></td>
+                        </tr>`
+            tbody.append(result);
+            $("#staticBackdrop").modal("hide");
+        })
+        $("#productid").on("keyup", function ()
+        {
+            $.post("@Url.Content("~/Order/SearchFindName")", { id:$(this).val() }, (data) => $("#productname").val(data))
+        })
+        $("#BtnSubmit").on("click", (e) =>
+        {
+            e.preventDefault();
+            let details = [];
+            let orderid = $("#orderid").val();
+            $("tbody tr").each(function (index, element)
+            {
+                var o = {
+                    OrderId: orderid,
+                    ProductId: $(element).children().eq(0).text(),
+                    UnitPrice: $(element).children().eq(2).children(0).val(),
+                    Quantity: $(element).children().eq(3).children(0).val()
+                }
+                details.push(o);
+            })
+
+            $.post("@Url.Content("~/Order/Edit")", { details: details, OrderDate: $("#orderdate").val(), SendAddress: $("#sendaddress").val(), OrderStatusId: $("#orderstatusid").val(), id: $("#orderid").val() }, (data) =>
+            {
+                if (data == true)
+                {
+                    alert("修改成功，即將回到訂單列表");
+                    document.location.href = "@Url.Content("~/Order/List")";
+                }
+                else
+                {
+                    alert("修改失敗，別問原因");
+                    document.location.href = "@Url.Content("~/Order/List")";
+                }
+            })
+
+        })
+    </script>
+}
+@*<div class="form-group">
+        <label asp-for="OrderDate" class="control-label"></label>
+        <input asp-for="OrderDate" class="form-control" id="orderdate" />
+        <span asp-validation-for="OrderDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="SendAddress" class="control-label"></label>
+        <input asp-for="SendAddress" class="form-control" id="sendaddress" />
+        <span asp-validation-for="SendAddress" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="OrderStatus" class="control-label"></label>
+        <select id="orderstatusid">*@

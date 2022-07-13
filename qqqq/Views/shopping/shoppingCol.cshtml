@@ -1,0 +1,41 @@
+﻿
+@model IEnumerable<qqqq.ViewModels.CProductShow>
+<section class="section-margin--small mb-5">
+   
+    <!-- End Filter Bar -->
+    <!-- Start Best Seller -->
+    <section class="lattest-product-area pb-40 category-list">
+        <div class="row">
+
+            @foreach (var p in Model)
+            {
+<div class="col-md-10 col-lg-4">
+    <div class="card text-center card-product">
+        <div class="card-product__img">
+            <img  width="300" height="300" src="/Images/@p.Photos.FirstOrDefault()?.PictureName" alt="">
+            <ul class="card-product__imgOverlay">
+                <li><button><i class="fa-solid fa-star">收藏</i></button></li>
+                <li>
+    <button id="addToCart" >
+        <i class="ti-heart fa-solid fa-cart-shopping" >@Html.ActionLink("加入購物車", "showproduct", new { id = p.ProductId })</i>
+</button>
+</li>
+            </ul>
+        </div>
+        <div class="card-body">
+            <p>庫存:@p.UnitsInStock</p>
+            <h4 class="card-product__title"><a href="#">@p.ProductName</a></h4>
+            <p class="card-product__price ">@(((decimal)p.Price).ToString("0.00"))</p>
+        </div>
+    </div>
+</div>            }
+
+            
+        </div>
+    </section>
+    <!-- End Best Seller -->
+    
+</section>
+@section scripts{ 
+
+}

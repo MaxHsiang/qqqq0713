@@ -1,0 +1,125 @@
+﻿@*<div class="container-fluid  py-6 wow fadeIn" data-wow-delay="0.1s" style=" margin-bottom: 6rem; background: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)),url(../img/head-5.jpg) center center no-repeat; background-size: cover;">
+    <div class="container text-center pt-5 pb-3">
+        <h1 class="display-4 text-white animated slideInDown mb-3">購物商城</h1>*@
+
+
+    @*</div>
+</div>*@
+@model IEnumerable<qqqq.ViewModels.CProductShow>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+
+<!--<div class="row align-items-center">
+    <p class="col-4">-->
+        @*<a asp-action="Create">Create New</a>*@
+        <!--<img src="~/Images/001.png" class="col-11 " />
+    </p>
+    <h1 class="col-8">我救浪線上商城</h1>
+</div>-->
+@*<div class="row col-12">
+    <div class="col-2 alert alert-dark"></div>
+    <div class="col-9">b*@
+        <table class="table ">
+            @*<thead>
+                    <tr>
+                        <th>
+                            產品圖片
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProductName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SubCategoryId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Price)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SupplierId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IsPet)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.UnitsInStock)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Continued)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Cost)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>*@
+            <tbody>
+                @foreach (var item in Model)
+                {
+                   
+                    <tr class="align-center">
+
+                        <td>
+                            <img src="/Images/@item.Photos.FirstOrDefault()?.PictureName" width="120" height="120" />
+
+                        </td>
+                        <td>
+                            <h4> @Html.DisplayFor(modelItem => item.ProductName)</h4>
+                        </td>
+                        @*<td>
+                    @Html.DisplayFor(modelItem => item.SubCategoryId)
+                </td>*@
+                        <td>
+                            <h5>  @Html.DisplayFor(modelItem => item.Price)</h5>
+                        </td>
+                        @*<td>
+                    @Html.DisplayFor(modelItem => item.SupplierId)
+                </td>*@
+
+                        @*<td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>*@
+                        @*<td>
+                    @Html.DisplayFor(modelItem => item.UnitsInStock)
+                </td>*@
+                        @*<td>
+                    @Html.DisplayFor(modelItem => item.Continued)
+                </td>*@
+                        <td>
+                            庫存:  @Html.DisplayFor(modelItem => item.UnitsInStock)
+                        </td>
+                        <td>
+                            <button id="addToCart" class="btn btn-info">
+                                @Html.ActionLink("加入收藏", "showproduct", new { id = item.ProductId })
+                                @*<i class="ti-heart"></i>*@
+                            </button>|
+                            <button id="addToCart" class="btn btn-warning">
+                                @Html.ActionLink("加入購物車", "showproduct", new { id = item.ProductId })
+                                @*<i class="ti-heart"></i>*@
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    @*</div>
+    <div class="col-1 ti-layout-cta-btn-right">
+        <ul class="navbar-dark list-unstyled float-right product-" style="position:fixed">
+            <li>
+                <button class="btn btn-secondary" title="Popover title"
+                        data-container="body" data-toggle="popover" data-placement="right"
+                        data-content="右侧的 Popover 中的一些内容">
+                    <i class="fa-solid fa-cart-shopping"> (0)</i>
+                </button><br />
+            </li>
+            <li><button class="btn btn-secondary border-0" data-toggle="tooltip" data-placement="right" title="追蹤商品"><i class="fa-solid fa-star">收藏</i></button><br /></li>
+            <li><button class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="回到頂端"><i class="fa-solid fa-circle-arrow-up">TOP</i></button><br /></li>
+        </ul>
+        
+    </div>
+</div>*@

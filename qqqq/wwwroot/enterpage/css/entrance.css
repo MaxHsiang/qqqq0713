@@ -1,0 +1,93 @@
+﻿.wrapper {
+    position: relative;
+    width: 100vw;
+    height: 100%;
+    overflow: hidden;
+    background-color: white;
+}
+body {
+    
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+.div1{
+/*    flex:none;
+*/    position:absolute;
+    width:100px;
+    margin-left:50%;
+}
+
+@keyframes typing {
+    0% {
+        width: 0;
+    }
+}
+
+
+
+
+@keyframes caret {
+
+    50% {
+        border-right-color: transparent;
+    }
+}
+
+
+#autotype {
+    position: relative;
+    margin-left: 30%;
+    margin-top: 50px;
+    font-weight: 900;
+    font-size:30px;
+    user-select: none;
+    font-family: 標楷體;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: .05em solid;
+    animation: typing1 3s, caret1 1s steps(1) infinite;
+}
+
+.divbtn {
+    width:100vw;
+   display:flex;flex-wrap:wrap;
+   margin-top:350px;
+   justify-content:center;
+   align-items:center;
+}
+.btn {
+    flex: none;
+    width: 300px;
+    margin:10px;
+    display: none;
+    cursor: pointer;
+
+}
+@media (max-width:1200px){
+    .divbtn>img{
+        width:30%;
+    }
+    .divmaq > marquee {
+        width :300px;
+
+    }
+}
+
+@media (max-width:500px) {
+    .divbtn > img {
+        width: 90%;
+    }
+}
+.divmaq {
+    display:flex;
+    justify-content: center;
+}
+marquee {
+    font-size: 30px;
+    user-select: none;
+    font-family: 標楷體;
+    white-space: nowrap;
+}
+
