@@ -36,7 +36,8 @@ namespace qqqq.Controllers
             {
                 CMemberView v = new CMemberView();
                 v.Member = m;
-                list.Add(v);
+                //v.MemberNewBirthDate =(string)m.BirthdayDate.ToString();
+                list.Add(v); 
             }
             return View(list);
         }

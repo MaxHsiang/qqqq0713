@@ -116,8 +116,8 @@ namespace prjHomeLess_R.Controllers
             //             //todo照片上傳
             //         }
          
-                _context.Members.Add(mem);
-                _context.SaveChanges();
+                //_context.Members.Add(mem);
+                //_context.SaveChanges();
             
             //todo
 
