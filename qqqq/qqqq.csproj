@@ -102,4 +102,13 @@
     <None Include="wwwroot\css_Q\js\.sass-cache\f8f0098c6d87e34d84a0704fb71588a6cc87b962\responsive.scssc" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\我就浪.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\我就浪.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
