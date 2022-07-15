@@ -1,5 +1,6 @@
 ﻿.v_pic_div {
-    float:left;
+    float: left;
+    height: 200px;
 }
 .VInfotbody {
     word-wrap: break-word;

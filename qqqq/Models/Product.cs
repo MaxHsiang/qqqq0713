@@ -25,6 +25,7 @@ namespace qqqq.Models
         public int? UnitsInStock { get; set; }
         public bool? Continued { get; set; }
         public decimal? Cost { get; set; }
+        public bool? IsDefault { get; set; }
 
         public virtual SubCategory SubCategory { get; set; }
         public virtual Supplier Supplier { get; set; }

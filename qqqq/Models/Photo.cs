@@ -11,6 +11,7 @@ namespace qqqq.Models
         public int? ProductId { get; set; }
         public byte[] Picture { get; set; }
         public string PictureName { get; set; }
+        public byte[] Photo1 { get; set; }
         public bool? IsDefault { get; set; }
 
         public virtual Product Product { get; set; }

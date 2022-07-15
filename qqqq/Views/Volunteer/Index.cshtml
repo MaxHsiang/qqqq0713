@@ -1,7 +1,7 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
 }
+
 <div class="container-fluid  py-6 wow fadeIn" data-wow-delay="0.1s" style=" margin-bottom: 6rem; background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url(../img/head-5.jpg) center center no-repeat; background-size: cover;">
     <div class="container text-center pt-5 pb-3">
         <h2 class="display-4 text-white animated slideInDown mb-3">志工</h2>
@@ -12,7 +12,6 @@
     <div class="spinner-grow text-primary" role="status"></div>
 </div>
 <!-- Spinner End -->
-
 <!-- ================ category section start ================= -->
 <section class="section-margin--small mb-5">
     <div class="container">
@@ -21,72 +20,43 @@
                 <div class="sidebar-categories">
                     <div id="datepicker"></div>
                     <hr />
-                    <form action="#">
+                    <!-- 搜尋欄 -->
+                    <div class="filter-bar d-flex flex-wrap align-items-center">
+                        <div class="input-group filter-bar-search" style="display: flex; justify-content: center;  ">
+                            <input type="text" placeholder="Search" style="width:80%;" id="searchtext">
+                            <button type="button" class="input-group-append"><i class="bi bi-search"></i></button>
+                        </div>
+                    </div>
+                    <form method="post" enctype="application/x-www-form-urlencoded">
                         <div class="head" style="background-color: burlywood; border-radius: 8px 8px 0 0; ">志工服務搜尋</div>
-                        <ul class="main-categories">
-                            <li class="filter-list"><input class="pixel-checkbox" type="checkbox" id="men" name="brand"><label for="men">活動支援</label></li><br />
-                            <li class="filter-list"><input class="pixel-checkbox" type="checkbox" id="women" name="brand"><label for="women">家訪志工</label></li><br />
-                            <li class="filter-list"><input class="pixel-checkbox" type="checkbox" id="accessories" name="brand"><label for="accessories">接送志工</label></li><br />
-                            <li class="filter-list"><input class="pixel-checkbox" type="checkbox" id="accessories1" name="brand"><label for="accessories1">掃除志工</label></li><br />
+                        <ul class="main-categories search_checkbox">
                         </ul>
-                        <div class="head" style="background-color: burlywood; border-radius: 8px 8px 0 0; ">服務時間搜尋</div>
+                        @*<div class="head" style="background-color: burlywood; border-radius: 8px 8px 0 0; ">服務時間搜尋</div>
                         <ul class="main-categories">
-                            <li class="filter-list"><input class="pixel-radio" type="radio" id="gionee" name="brand"><label for="gionee">全天</label></li><br />
-                            <li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="brand"><label for="apple">上午(0900-1200)</label></li><br />
-                            <li class="filter-list"><input class="pixel-radio" type="radio" id="asus" name="brand"><label for="asus">下午(1400-1700)</label></li><br />
+                            <li class="filter-list"><input class="pixel-radio" type="radio" id="radio_allday" name="allday"><label for="radio_allday">全天</label><br /></li>
+                            <li class="filter-list"><input class="pixel-radio" type="radio" id="radio_morning" name="morning"><label for="radio_morning">上午(0900-1200)</label><br /></li>
+                            <li class="filter-list"><input class="pixel-radio" type="radio" id="radio_after" name="after"><label for="radio_after">下午(1400-1700)</label><br /></li>
                         </ul>
-                        <input class="btn btn-primary rounded-pill py-3 px-5"style="color:#FFFFFF;background:#EAA636;margin:10px 80px"  type="submit" value="搜尋" />
+                        <input class="btn btn-primary rounded-pill py-3 px-5" style="color:#FFFFFF;background:#EAA636;margin:10px 80px" type="submit" value="搜尋" />*@
                     </form>
                 </div>
             </div>
 
-            <div class="col-xl-9 col-lg-8 col-md-7">
-                <!-- 搜尋欄 -->
-                <div class="filter-bar d-flex flex-wrap align-items-center">
-                    <div class="input-group filter-bar-search">
-                        <input type="text" placeholder="Search">
-                        <button type="button" class="input-group-append"><i class="bi bi-search"></i></button>
-                    </div>
-                </div>
-                
-                <ul>
-                    <li id="li_start">
-                        @{
-                            foreach (var i in Model)
-                            {
-                                <div class="v_div">
-                                    <div class="v_pic_div" style="height:200px;">
-                                        <img src="~/img/volunteer/@i.ActivityPhoto" />
-                                    </div>
-                                    <div class="v_des_div">
-                                        @Html.ActionLink($"{ i.Title}", "Info", "Volunteer", new { id = i.ActivityID },new { @class = "ActivityTitle" })<br />
-                                        <div>服務時間 : @i.StartDate ~ @i.EndDate</div>
-                                        <div>服務類別 : @i.ActivityCategoryName</div>
-                                        <div>需求人數 : @i.PeopleInNeed 人</div><br />
-                                        @using (@Html.BeginForm("SignUp", "Volunteer", new { id = i.ActivityID }, FormMethod.Post))
-                                        {
-                                            <input class="btn btn-primary rounded-pill py-3 px-5"style="color:#FFFFFF;background:#EAA636" type="submit" value="報名"  />
-                                        }
-                                    </div>
-                                    <hr />
-                                </div>
-                            }
-                         }
-                    </li>
-                </ul>
+            <div class="col-xl-9 col-lg-8 col-md-7" id="li_start">
             </div>
         </div>
     </div>
 </section>
 
-
-
 <!-- Back to Top -->
 <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
 
-@section Scripts{ 
+@section Scripts{
 
     <script>
+        //datepiker
+        let selectedDate = null;
+        console.log(selectedDate)
         $.datepicker.regional['zh-TW'] = {
             dayNames: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"],
             dayNamesMin: ["日", "一", "二", "三", "四", "五", "六"],
@@ -98,8 +68,73 @@
         };
         $.datepicker.setDefaults($.datepicker.regional["zh-TW"]);
         $(function () {
-            $("#datepicker").datepicker().css("font-size", "1.05em");
+            $("#datepicker").datepicker({
+                dateFormat : "yy-mm-dd",
+                onSelect: (date) => {
+                    selectedDate = date;
+                    console.log(selectedDate)
+                }
+            }).css("font-size", "1.05em");
         });
         $(".ActivityTitle").css({ "font-size": "28px", "color": "cadetblue" });
+
+        //init
+        let arr = [];
+        async function loadCheckBox() {
+            let response = await fetch('@Url.Content("~/Volunteer/loadCheckBox")');
+            let datas = await response.json();
+            let str = "";
+            datas.forEach(item => {
+                //console.log(item);
+                str += `<li class="filter-list"><input class="pixel-checkbox" type="checkbox" id="activity_${item.activityCategoryId}" name="clean"><label for="activity_${item.activityCategoryId}">${item.categoryName}</label><br /></li>`;
+
+            });
+            $(".search_checkbox").append(str);
+            //checkbox
+            $("form :checkbox").change((event) => {
+                let act_id = parseInt(event.target.id.replace(/[^0-9]/ig, ""))
+                if (arr.includes(act_id)) {
+                    arr.splice(jQuery.inArray(act_id, arr), 1);
+                    load();
+                    return;
+                }
+                arr.push(act_id);
+                load();
+            })
+        };
+        //查詢
+        let searchString = null;
+        $("#searchtext").keyup(() => {
+            searchString = $("#searchtext").val();
+            console.log(searchString)
+        })
+        function load() {
+            $("#li_start").html("");
+            $.post('@Url.Content("~/Volunteer/loadList")', { intarr: arr, date: selectedDate, keyString: searchString}, (result)=> {
+                /*console.log(result)*/
+                let str = "";
+                result.forEach(item => {
+                    //console.log(item)
+                    str += `<div class="v_div" style="height:200px;">
+	                            <div class="v_pic_div">
+		                            <img src="../img/volunteer/${item.activityPhoto}" style="width:33%;height:200px;padding-right:30px; float:left;" />
+	                            </div>
+                                <div class="v_des_div"  style="width:80%;height:200px;">
+                                    <h4>${item.title}</h4>
+		                            <div>服務時間 : ${item.startDate} ~ ${item.endDate}</div>
+		                            <div>服務類別 : ${item.activityCategoryName}</div>
+		                            <div>需求人數 : ${item.peopleInNeed} 人</div>
+                                    <div>工作內容 : ${item.description}</div>
+                                    <form action="/Volunteer/SignUp/${item.vactivity.activityId}" method="post">
+                                        <input class="btn btn-primary rounded-pill py-2 px-4" style="color:#FFFFFF;background:#EAA636;margin-top:5px;" type="submit" value="報名" />
+                                    </form>
+                                </div>
+                            </div><hr />`;
+                    });
+                $("#li_start").append(str);
+                });
+        }
+        load();
+        loadCheckBox();
     </script>
 }

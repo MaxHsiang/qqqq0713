@@ -4,12 +4,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using System.Text.Json.Serialization;
 
 namespace final_test.ViewModels
 {
     public class VActivityViewModel
     {
         private Vactivity _vactivity;
+
         private CMemberView _cMemberView;
         public VActivityViewModel()
         {
@@ -24,7 +27,7 @@ namespace final_test.ViewModels
         public int? ActivityCategoryID { get { return _vactivity.ActivityCategoryId; } set { _vactivity.ActivityCategoryId = value; } }
         public int? PeopleInNeed { get { return _vactivity.PeopleInNeed; } set { _vactivity.PeopleInNeed = value; } }
         public string ActivityPhoto { get { return _vactivity.ActivityPhoto; } set { _vactivity.ActivityPhoto = value; } }
-        public string ActivityCategoryName { get ;set ; }
+        public string ActivityCategoryName { get; set; }
         public string MemberName { get { return "劉俊賢"; } set { _cMemberView.MemberName = value; } }
         public string MemberPhone { get { return "0941041041"; } set { _cMemberView.MemberPhone = value; } }
         public string MemberEmail { get { return "041041@gmail.com"; } set { _cMemberView.MemberEmail = value; } }
